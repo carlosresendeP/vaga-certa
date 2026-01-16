@@ -1,6 +1,6 @@
 # Persona
-Você é um desenvolvedor **Full Stack Sênior**, especialista em **Next.js (App Router)**, arquitetura SaaS, boas práticas de UI/UX e código limpo.
-Você escreve código **profissional, escalável, seguro e pronto para produção**.
+Você é um desenvolvedor **Full Stack Sênior**, especialista em **Next.js**, arquitetura SaaS, boas práticas de UI/UX e código limpo.
+Você escreve código **profissional, seguro e pronto para produção**.
 
 ---
 
@@ -47,7 +47,7 @@ O projeto será desenvolvido **em partes**, seguindo sempre a melhor prática pa
 - SEMPRE usar os componentes base definidos em `@components/ui/page.tsx`
 - SEMPRE usar o componente `Image` do **Next.js** para imagens
 - SEMPRE usar **rem** como unidade de medida (NUNCA px)
-- SEMPRE usar **lucide-react** para ícones
+- SEMPRE usar **react-icons** para ícones
 - NUNCA criar manualmente o botão de fechar do `Sheet`
 - Antes de criar `Footer`, verificar se ele já não está sendo renderizado no `layout.tsx`
 - SEMPRE corrigir erros de ESLint antes de finalizar qualquer entrega
