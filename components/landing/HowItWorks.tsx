@@ -8,7 +8,7 @@ export default function HowItWorks() {
       icon: <FaCloudUploadAlt className="h-10 w-10 text-primary" />,
       title: "1. Cole a Vaga e seu CV",
       description:
-        "Copie a descrição da vaga desejada e faça upload do seu currículo atual em PDF ou Word.",
+        "Copie a descrição da vaga desejada e faça upload do seu currículo atual ou texto.",
     },
     {
       icon: <FaMagic className="h-10 w-10 text-primary" />,

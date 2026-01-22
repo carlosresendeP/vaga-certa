@@ -11,6 +11,8 @@ import { Badge } from "@/components/ui/badge";
 import { FaCheck } from "react-icons/fa";
 
 export default function PricingSection() {
+
+
   return (
     <SectionContainer className="bg-secondary/20" id="pricing">
       <div className="text-center max-w-3xl mx-auto mb-16">
@@ -36,21 +38,15 @@ export default function PricingSection() {
           <CardContent className="flex-1">
             <ul className="space-y-3">
               <li className="flex items-center gap-2">
-                <FaCheck className="h-4 w-4 text-green-500" /> 1 Otimização de
+                <FaCheck className="h-4 w-4 text-success" /> 5 Otimizações de
                 Currículo/mês
               </li>
               <li className="flex items-center gap-2">
-                <FaCheck className="h-4 w-4 text-green-500" /> Análise Básica de
+                <FaCheck className="h-4 w-4 text-success" /> Análise Básica de
                 ATS
               </li>
               <li className="flex items-center gap-2">
-                <FaCheck className="h-4 w-4 text-green-500" /> Exportação em PDF
-              </li>
-              <li className="flex items-center gap-2 text-muted-foreground/50">
-                <FaCheck className="h-4 w-4" /> Sem Otimização LinkedIn
-              </li>
-              <li className="flex items-center gap-2 text-muted-foreground/50">
-                <FaCheck className="h-4 w-4" /> Sem Carta de Apresentação
+                <FaCheck className="h-4 w-4 text-success" /> Copie para o seu currículo
               </li>
             </ul>
           </CardContent>
@@ -76,31 +72,31 @@ export default function PricingSection() {
               Para quem quer resultados rápidos
             </p>
             <div className="py-4">
-              <span className="text-4xl font-bold">R$ 20,90</span>
+              <span className="text-4xl font-bold">R$ 9,90</span>
               <span className="text-muted-foreground">/mês</span>
             </div>
+
           </CardHeader>
           <CardContent className="flex-1">
             <ul className="space-y-3">
               <li className="flex items-center gap-2">
-                <FaCheck className="h-4 w-4 text-green-500" /> Otimizações
+                <FaCheck className="h-4 w-4 text-success" /> Otimizações
                 Ilimitadas
               </li>
               <li className="flex items-center gap-2">
-                <FaCheck className="h-4 w-4 text-green-500" /> Análise Avançada
-                de Keywords
+                <FaCheck className="h-4 w-4 text-success" /> Copie para o seu currículo
               </li>
-              <li className="flex items-center gap-2">
-                <FaCheck className="h-4 w-4 text-green-500" /> Exportação PDF e
-                Word
+              <li className=" gap-2">
+                <p className="line-through flex items-center text-muted-foreground">
+                  <FaCheck className="h-4 w-4 text-success" /> Otimização de
+                  Perfil LinkedIn
+                </p>
               </li>
-              <li className="flex items-center gap-2">
-                <FaCheck className="h-4 w-4 text-green-500" /> Otimização de
-                Perfil LinkedIn
-              </li>
-              <li className="flex items-center gap-2">
-                <FaCheck className="h-4 w-4 text-green-500" /> Gerador de Carta
-                de Apresentação
+              <li className=" gap-2">
+                <p className="line-through flex items-center text-muted-foreground">
+                  <FaCheck className="h-4 w-4 text-success " /> Gerador de Carta
+                  de Apresentação
+                </p>
               </li>
             </ul>
           </CardContent>
@@ -127,7 +123,7 @@ export default function PricingSection() {
             </CardTitle>
             <p className="text-muted-foreground">Plano anual com desconto</p>
             <div className="py-4">
-              <span className="text-4xl font-bold">R$ 197</span>
+              <span className="text-4xl font-bold">R$ 97</span>
               <span className="text-muted-foreground">/ano</span>
             </div>
           </CardHeader>
@@ -135,19 +131,15 @@ export default function PricingSection() {
             <ul className="space-y-3">
               <li className="flex items-center gap-2">
                 <FaCheck className="h-4 w-4 text-purple-600" />{" "}
-                <strong>Acesso Anual</strong> ao Pro
+                <strong>Acesso Anual</strong>
               </li>
               <li className="flex items-center gap-2">
                 <FaCheck className="h-4 w-4 text-purple-600" /> Todas as
-                atualizações futuras
+                atualizações
               </li>
               <li className="flex items-center gap-2">
                 <FaCheck className="h-4 w-4 text-purple-600" /> Prioridade no
                 Suporte
-              </li>
-              <li className="flex items-center gap-2">
-                <FaCheck className="h-4 w-4 text-purple-600" /> Sem mensalidades
-                nunca
               </li>
             </ul>
           </CardContent>
@@ -157,6 +149,11 @@ export default function PricingSection() {
             </Button>
           </CardFooter>
         </Card>
+      </div>
+
+      <div className="text-center text-muted-foreground mt-20 bg-destructive/10 border border-destructive/10 p-2 rounded">
+          <p className="text-lg font-bold text-destructive rounded ">EM BREVE LANÇAREMOS A OTIMIZAÇÃO LINKEDIN E A CARTA DE APRESENTAÇÃO</p>
+          <p className="text-sm text-destructive/50">O preço vai ser R$ <strong>19,90/mês</strong></p>
       </div>
     </SectionContainer>
   );
