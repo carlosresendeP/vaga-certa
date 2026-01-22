@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 import { FaArrowRight, FaCheckCircle } from "react-icons/fa";
 import { PageContainer, SectionContainer } from "@/components/ui/page";
 
@@ -30,13 +31,15 @@ export default function Hero() {
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in-up delay-300">
-          <Button
-            size="lg"
-            className="h-14 px-8 text-lg rounded-full shadow-lg shadow-blue-500/20 w-full sm:w-auto hover:scale-105 transition-transform"
-          >
-            Otimizar Currículo Agora
-            <FaArrowRight className="ml-2 h-5 w-5" />
-          </Button>
+          <Link href="/sign-up" className="w-full sm:w-auto">
+            <Button
+              size="lg"
+              className="h-14 px-8 text-lg rounded-full shadow-lg shadow-blue-500/20 w-full hover:scale-105 transition-transform"
+            >
+              Otimizar Currículo Agora
+              <FaArrowRight className="ml-2 h-5 w-5" />
+            </Button>
+          </Link>
           <Button
             variant="outline"
             size="lg"

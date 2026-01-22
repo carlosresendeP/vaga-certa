@@ -1,0 +1,7 @@
+app/dashboard/page.tsx(71,24): error TS2322: Type '{ user: { id: string; createdAt: Date; updatedAt: Date; email: string; emailVerified: boolean; name: string; image?: string | null | undefined; }; }' is not assignable to type 'IntrinsicAttributes'.
+  Property 'user' does not exist on type 'IntrinsicAttributes'.
+components/dashboard/settings/ProfileForm.tsx(25,24): error TS2339: Property 'user' does not exist on type '{ signOut: <FetchOptions extends ClientFetchOption<never, Partial<Record<string, any>> & Record<string, any>, Record<string, any> | undefined>>(data_0?: Prettify<...> | undefined, data_1?: FetchOptions | undefined) => Promise<...>; } & ... 24 more ... & { ...; }'.
+lib/gemini.ts(88,18): error TS2722: Cannot invoke an object which is possibly 'undefined'.
+lib/gemini.ts(88,18): error TS18048: 'response.text' is possibly 'undefined'.
+lib/gemini.ts(88,27): error TS6234: This expression is not callable because it is a 'get' accessor. Did you mean to use it without '()'?
+  Type 'String' has no call signatures.

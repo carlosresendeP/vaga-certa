@@ -1,0 +1,91 @@
+Modelo de currículo:
+
+NOME E SOBRENOME
+Nacionalidade / Pcd
+Bairro, Cidade e Estado | Celular: (DDD) 9 9999-9999
+E-mail: seuemail@seuemail.com | LinkedIn: www.linkedin.com/in/seunomeesobrenome
+Portfólio: 
+
+PROGRAMADOR JUNIOR | DESENVOLVEDOR | ANALISTA DE….
+(colocar nome da vaga de interesse)
+
+Resumo de Qualificações: (exemplos)
+
+●	Profissional da área de programação, com background sólido em [área anterior, ex.: engenharia, administração, marketing]. Experiência prévia em [habilidades transferíveis, ex.: análise de dados, automação de processos, lógica de negócios], agregando uma visão estratégica ao desenvolvimento de software.
+●	Habilidade em desenvolvimento de sistemas utilizando [tecnologias principais, ex.: JavaScript, React, Node.js, Python], com foco na criação de soluções escaláveis e eficientes. Experiência prática adquirida por meio de projetos próprios, cursos e bootcamps intensivos em programação.
+●	Capacidade de aprendizado rápido e adaptação a novos desafios, com conhecimento em metodologias ágeis (Scrum, Kanban), versionamento de código (Git) e integração de APIs. Experiência com banco de dados [SQL/NoSQL] e implementação de arquiteturas eficientes para garantir a escalabilidade das soluções.
+●	Motivado a ingressar no mercado de tecnologia, trazendo habilidades analíticas, pensamento crítico e experiência multidisciplinar para agregar valor ao desenvolvimento de produtos digitais. Busco oportunidades para colaborar com equipes inovadoras e continuar minha evolução profissional na área de tecnologia.
+
+Formação Acadêmica
+
+●	Formação Programador… - DevClub, 2025
+●	Pós-Graduação em Gestão de Pessoas – PUC/PR, 2015.
+●	Graduação em Administração de Empresas – UP, 2013.
+
+Idiomas
+
+●	Inglês – Básico 
+●	Alemão – Avançado.
+●	Espanhol – Intermediário.
+
+
+Histórico Profissional
+
+   10/2024 a 02/2025 – Autonomo 
+   Desenvolvedor Junior Front…
+   
+●	Descrever as principais atribuições: 
+●	Exemplos: Gestão dos recursos humanos, logística, manutenção e fabricação. 
+●	Assistência aos clientes, proporcionando redução de custo e melhoria de qualidade e produtividade.
+●	Principais resultados:
+●	Redução de 35% dos custos com a reorganização da área de logística.
+●	Implementação da nova tecnologia com savings de até 3%.
+●	Redução da base de fornecedores de 3.000 para 1.120 e aumento da conversão de pedidos de 75% para 86%.
+
+
+
+
+
+
+
+   10/2024 a 02/2025 - Nome da Empresa
+   Empresa nacional de grande porte do segmento de XXXX (opcional)
+   Cargo: Desenvolvedor Júnior
+•	Descrever as principais atribuições: 
+●	Exemplos: Desenvolvimento e manutenção de aplicações utilizando [tecnologias utilizadas, ex.: JavaScript, React, Node.js, Python].
+●	Participação na implementação de novas funcionalidades e otimização de código para melhor performance.
+●	Assistência técnica e suporte em sistemas, proporcionando redução de falhas e melhoria na performance das aplicações.
+Principais resultados:
+● Redução de 35% do tempo de carregamento das aplicações com otimização de código.
+● Implementação de nova tecnologia com savings de até 3%.
+● Redução de falhas críticas em produção e aumento da estabilidade dos sistemas em 86%.
+
+
+(COLOCAR APENAS AS 3 ÚLTIMAS EXPERIÊNCIAS PROFISSIONAIS)
+
+Experiência Internacional 
+
+●	2018 – EUA – Intercâmbio através da Escola XXXX com o objetivo de aprimoramento do idioma e trocas culturais. 
+●	2006 a 2012 – FRANÇA – Visita de uma semana para aprimoramento de melhores práticas entre fábricas do grupo e treinamento na matriz da empresa.
+
+Formação Complementar
+
+●	COLOCAR CURSOS EXTRAS QUE JÁ FEZ
+●	Gestão de pessoas, liderança e desenvolvimento de equipes – FGV, 2018.
+
+
+Projetos
+
+●	PROJETO: SITE DA NIKE
+Tecnologias: JAVA…
+Resumo: O que foi feito…
+Link: www…
+
+
+Ferramentas da tecnologia e Outras Informações
+
+●	COLOCAR AS FERRAMENTAS AQUI
+●	Microsoft Office – Avançado.
+●	Conhecimento de ERP: Microsiga e SAP.
+●	Trabalho voluntário junto às comunidades carentes no período de 2010 a 2018.
+

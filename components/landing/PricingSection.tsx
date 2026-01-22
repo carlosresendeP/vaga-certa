@@ -118,12 +118,12 @@ export default function PricingSection() {
               variant="outline"
               className="border-purple-500 text-purple-600"
             >
-              Vitalício
+              Anual
             </Badge>
           </div>
           <CardHeader className="text-center pb-2">
             <CardTitle className="text-2xl font-bold text-purple-700">
-              Lifetime
+              Pro - Anual
             </CardTitle>
             <p className="text-muted-foreground">Plano anual com desconto</p>
             <div className="py-4">
@@ -135,7 +135,7 @@ export default function PricingSection() {
             <ul className="space-y-3">
               <li className="flex items-center gap-2">
                 <FaCheck className="h-4 w-4 text-purple-600" />{" "}
-                <strong>Acesso Vitalício</strong> ao Pro
+                <strong>Acesso Anual</strong> ao Pro
               </li>
               <li className="flex items-center gap-2">
                 <FaCheck className="h-4 w-4 text-purple-600" /> Todas as
