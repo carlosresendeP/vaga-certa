@@ -39,8 +39,9 @@ model ResumeHistory {
   @@index([userId])
 }
 
-enum Plan {
-  FREE
+enum Plan <
+ {
+  FREE 
   PRO
   ANNUAL
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -12,6 +12,28 @@ export function SecurityForm() {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [checkingAccounts, setCheckingAccounts] = useState(true);
+  const [hasCredential, setHasCredential] = useState(false);
+
+  useEffect(() => {
+    async function checkAccounts() {
+      try {
+        const { data } = await authClient.listAccounts();
+        if (data) {
+          const hasPassword = data.some(
+            (account) => account.providerId === "credential",
+          );
+          setHasCredential(hasPassword);
+        }
+      } catch (error) {
+        console.error("Failed to list accounts", error);
+      } finally {
+        setCheckingAccounts(false);
+      }
+    }
+
+    checkAccounts();
+  }, []);
 
   const handleUpdatePassword = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -44,6 +66,23 @@ export function SecurityForm() {
       setLoading(false);
     }
   };
+
+  if (checkingAccounts) {
+    return (
+      <div className="text-sm text-muted-foreground">
+        Carregando informações de segurança...
+      </div>
+    );
+  }
+
+  if (!hasCredential) {
+    return (
+      <div className="rounded-md bg-muted p-4 text-sm text-muted-foreground">
+        Você fez login com uma conta social (Google). Não é necessário definir
+        uma senha.
+      </div>
+    );
+  }
 
   return (
     <form onSubmit={handleUpdatePassword} className="grid gap-4 max-w-md">

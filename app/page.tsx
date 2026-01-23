@@ -10,6 +10,7 @@ import PricingSection from "@/components/landing/PricingSection";
 import FAQSection from "@/components/landing/FAQSection";
 import CTASection from "@/components/landing/CTASection";
 import Header from "@/components/landing/Header";
+import Footer from "@/components/landing/Footer";
 
 export default function Home() {
   return (
@@ -27,6 +28,7 @@ export default function Home() {
       <PricingSection />
       <FAQSection />
       <CTASection />
+      <Footer />
     </main>
   );
 }
