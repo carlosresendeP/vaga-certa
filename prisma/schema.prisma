@@ -4,7 +4,6 @@ generator client {
 
 datasource db {
   provider  = "postgresql"
-
 }
 
 model User {
@@ -39,8 +38,8 @@ model ResumeHistory {
   @@index([userId])
 }
 
-enum Plan <
- {
+enum Plan {
+
   FREE 
   PRO
   ANNUAL
@@ -77,6 +76,7 @@ model Account {
   userId                String
   accountId             String
   providerId            String
+  idToken               String?
   accessToken           String?
   refreshToken          String?
   accessTokenExpiresAt  DateTime?

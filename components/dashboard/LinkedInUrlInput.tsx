@@ -22,6 +22,8 @@ export function LinkedInUrlInput({ isPro }: LinkedInUrlInputProps) {
   const [url, setUrl] = useState("");
   const [analyzing, setAnalyzing] = useState(false);
 
+  const linkedinOtimizer = false
+
   const handleAnalyze = async () => {
     if (!url.includes("linkedin.com/in/")) {
       toast.error("Por favor, insira uma URL válida de perfil do LinkedIn.");
@@ -40,6 +42,14 @@ export function LinkedInUrlInput({ isPro }: LinkedInUrlInputProps) {
       toast.success("Perfil enviado para análise!");
     }, 2000);
   };
+
+  if(!linkedinOtimizer){
+    return(
+      <div>
+        <span className="text-lg text-destructive border border-destructive rounded-md p-2">Não disponivel no momento</span>
+      </div>
+    )
+  }
 
   return (
     <Card

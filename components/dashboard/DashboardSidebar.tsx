@@ -19,11 +19,11 @@ const sidebarItems = [
     href: "/dashboard",
     icon: MdDashboard,
   },
-  {
-    title: "Meu Currículo",
-    href: "/dashboard/resume",
-    icon: MdArticle,
-  },
+  // {
+  //   title: "Meu Currículo",
+  //   href: "/dashboard/resume",
+  //   icon: MdArticle,
+  // },
   {
     title: "Histórico",
     href: "/dashboard/history",
@@ -83,10 +83,10 @@ export function DashboardSidebar() {
       <div className="p-4 border-t border-slate-800">
         <button
           onClick={handleSignOut}
-          className="flex w-full items-center gap-3 px-4 py-3 rounded-lg transition-colors text-red-400 hover:text-red-300 hover:bg-red-950/20"
+          className="flex w-full items-center gap-3 px-4 py-3 rounded-lg  transition-colors text-primary hover:text-primary-foreground hover:bg-primary/20"
         >
           <MdLogout className="h-5 w-5" />
-          <span>Sair</span>
+          <span className="text-lg font-semibold">Sair</span>
         </button>
       </div>
     </aside>

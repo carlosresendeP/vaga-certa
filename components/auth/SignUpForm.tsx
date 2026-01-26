@@ -76,6 +76,7 @@ const SignUpForm = ({ children }: SignUpFormProps) => {
     /* Google Sign In */
   }
   const handleGoogleSignIn = async () => {
+    document.cookie = "auth_intent=signup; path=/; max-age=300; SameSite=Lax";
     const { error } = await authClient.signIn.social({
       provider: "google",
       callbackURL: "/dashboard",

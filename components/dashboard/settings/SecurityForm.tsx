@@ -86,6 +86,7 @@ export function SecurityForm() {
 
   return (
     <form onSubmit={handleUpdatePassword} className="grid gap-4 max-w-md">
+      <p className="text-sm text-muted-foreground">Se você fez login com uma conta social (Google), não é necessário definir uma senha.</p>
       <div className="grid gap-2">
         <Label htmlFor="current-password">Senha Atual</Label>
         <Input

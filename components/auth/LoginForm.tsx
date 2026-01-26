@@ -25,7 +25,9 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 export default function LoginForm() {
-  const [serverError, setServerError] = useState<string | null>(null);
+  const [serverError, setServerError] = useState<string | null>(
+    "E-mail ou senha inválidos",
+  );
   const router = useRouter();
 
   const {
@@ -70,6 +72,7 @@ export default function LoginForm() {
     /* Google Sign In */
   }
   const handleGoogleSignIn = async () => {
+    document.cookie = "auth_intent=login; path=/; max-age=300; SameSite=Lax";
     const { error } = await authClient.signIn.social({
       provider: "google",
       callbackURL: "/dashboard",

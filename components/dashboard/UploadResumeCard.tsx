@@ -96,7 +96,7 @@ export function UploadResumeCard({
           Otimizador de Currículo com IA
         </CardTitle>
         <CardDescription>
-          Cole seu currículo atual e a vaga desejada para receber uma versão
+          Cole seu currículo ou só o resumo atual e a vaga desejada para receber uma versão
           otimizada.
         </CardDescription>
       </CardHeader>
@@ -116,7 +116,7 @@ export function UploadResumeCard({
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="job-vacancy">Vaga Desejada (Opcional)</Label>
+              <Label htmlFor="job-vacancy">Vaga Desejada</Label>
               <Textarea
                 id="job-vacancy"
                 className="min-h-[100px] text-sm"

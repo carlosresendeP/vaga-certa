@@ -20,11 +20,13 @@ export const auth = betterAuth({
     updateAge: 60 * 60 * 24, // 1 day (every 1 day the session expiration is updated)
   },
   user: {
+    deleteUser: {
+      enabled: true,
+    },
     additionalFields: {
       plan: {
         type: "string",
         required: false,
-        defaultValue: "FREE",
       },
     },
   },
