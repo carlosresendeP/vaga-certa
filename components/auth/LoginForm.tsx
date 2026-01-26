@@ -25,9 +25,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 export default function LoginForm() {
-  const [serverError, setServerError] = useState<string | null>(
-    "E-mail ou senha inválidos",
-  );
+  const [serverError, setServerError] = useState<string | null>(null);
   const router = useRouter();
 
   const {
@@ -93,7 +91,7 @@ export default function LoginForm() {
         {serverError && (
           <Alert variant="destructive" className="mb-4">
             <AlertTitle>Erro</AlertTitle>
-            <AlertDescription>{serverError}</AlertDescription>
+            <AlertDescription>E-mail ou senha inválidos</AlertDescription>
           </Alert>
         )}
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">

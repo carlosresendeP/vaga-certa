@@ -7,8 +7,6 @@ import { LinkedInUrlInput } from "@/components/dashboard/LinkedInUrlInput";
 import { UsageStats } from "@/components/dashboard/UsageStats";
 import { PlanUpgradeCard } from "@/components/dashboard/PlanUpgradeCard";
 import { ProfileCard } from "@/components/dashboard/ProfileCard"; // Reuse existing
-import { DeleteAccountSection } from "@/components/dashboard/DeleteAccountSection"; // Only for settings
-import { Separator } from "@/components/ui/separator";
 
 export default async function DashboardPage() {
   const session = await auth.api.getSession({

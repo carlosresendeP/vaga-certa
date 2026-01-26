@@ -5,34 +5,41 @@ import { usePathname, useRouter } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
 import {
   MdDashboard,
-  MdArticle,
+  MdDownload,
   MdSettings,
   MdLogout,
   MdHistory,
 } from "react-icons/md";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
+import { ReactNode } from "react";
 
-const sidebarItems = [
+interface sidebarItemsPros {
+  title: string;
+  href: string;
+  icon: ReactNode;
+}
+
+const sidebarItems: sidebarItemsPros[] = [
   {
     title: "Dashboard",
     href: "/dashboard",
-    icon: MdDashboard,
+    icon: <MdDashboard />,
   },
-  // {
-  //   title: "Meu Currículo",
-  //   href: "/dashboard/resume",
-  //   icon: MdArticle,
-  // },
   {
     title: "Histórico",
     href: "/dashboard/history",
-    icon: MdHistory,
+    icon: <MdHistory />,
   },
   {
     title: "Configurações",
     href: "/dashboard/settings",
-    icon: MdSettings,
+    icon: <MdSettings />,
+  },
+  {
+    title: "Baixar Modelo de CV",
+    href: "/dashboard/downloadPage",
+    icon: <MdDownload />,
   },
 ];
 
@@ -72,7 +79,7 @@ export function DashboardSidebar() {
                     "bg-primary/20 text-primary hover:bg-primary/30 hover:text-primary-foreground",
                 )}
               >
-                <item.icon className="h-5 w-5" />
+                {item.icon}
                 <span>{item.title}</span>
               </Link>
             </li>
