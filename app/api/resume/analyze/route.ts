@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
-    const isPro = user.plan === "PRO" || user.plan === "ANNUAL";
+    const isPro = user.plan === "PRO";
     const usage = user.usage?.resumeUploads || 0;
     const limit = isPro ? 999999 : 5;
 

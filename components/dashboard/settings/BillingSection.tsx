@@ -5,7 +5,6 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -15,17 +14,27 @@ import { toast } from "sonner";
 
 export function BillingSection() {
   const { data: session, isPending } = authClient.useSession();
-  const plan = ((session?.user as any)?.plan as string) || "FREE"; // Cast as string in case inference misses custom fields
+
+  interface UserWithPlan {
+    plan?: string;
+  }
+  const user = session?.user as unknown as UserWithPlan;
+  const plan = user?.plan || "FREE";
 
   const isFree = plan === "FREE";
 
-  const handleManageSubscription = () => {
-    // Placeholder for billing portal redirection
-    if (isFree) {
-      toast.info("Iniciando fluxo de upgrade...");
+  const handleUpgrade = (url: string) => {
+    if (url) {
+      window.open(url, "_blank");
     } else {
-      toast.info("Redirecionando para o portal de cobrança...");
+      toast.error("Link de checkout não configurado.");
     }
+  };
+
+  const handleManage = () => {
+    toast.info(
+      "Para gerenciar sua assinatura, verifique seu email da Kiwify ou acesse a plataforma.",
+    );
   };
 
   if (isPending) {
@@ -57,11 +66,7 @@ export function BillingSection() {
                 : "bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400"
             }`}
           >
-            {plan === "FREE"
-              ? "Plano Gratuito"
-              : plan === "PRO"
-                ? "Plano Pro"
-                : "Plano Anual"}
+            {plan === "FREE" ? "Plano Gratuito" : "Plano Pro (Mensal)"}
           </span>
         </div>
       </CardHeader>
@@ -69,7 +74,7 @@ export function BillingSection() {
         <p className="text-sm text-muted-foreground">
           Você está atualmente no plano{" "}
           <strong>
-            {plan === "FREE" ? "Gratuito" : plan === "ANNUAL" ? "Anual" : "Pro"}
+            {plan === "FREE" ? "Gratuito" : plan === "PRO"}
           </strong>
           .
         </p>
@@ -80,20 +85,52 @@ export function BillingSection() {
             não terá mais acesso a funcionalidades premium.
           </p>
         )}
+
+        {/* Logic for Plan Switching/Upgrading */}
+        <div className="flex flex-col gap-2 sm:flex-row">
+          {isFree && (
+            <>
+              <Button
+                onClick={() =>
+                  handleUpgrade(
+                    process.env.NEXT_PUBLIC_KIWIFY_CHECKOUT_URL_PRO || "",
+                  )
+                }
+                className="flex-1"
+              >
+                Assinar Mensal (PRO)
+              </Button>
+              <Button
+                onClick={() =>
+                  handleUpgrade(
+                    process.env.NEXT_PUBLIC_KIWIFY_CHECKOUT_URL_ANUAL || "",
+                  )
+                }
+                variant="secondary"
+                className="flex-1"
+              >
+                Assinar Anual (Desconto)
+              </Button>
+            </>
+          )}
+
+          {plan === "PRO" && (
+            <div className="flex flex-col w-full gap-2">
+              <p className="text-xs text-muted-foreground mb-2">
+                Deseja mudar para o plano Anual? Cancele o plano mensal primeiro
+                para evitar duplicidade.
+              </p>
+              <Button
+                variant="outline"
+                onClick={handleManage}
+                className="border-red-200 text-red-600 hover:bg-red-50 hover:text-red-700 dark:border-red-900/30 dark:text-red-400 dark:hover:bg-red-900/20 w-full"
+              >
+                Cancelar Assinatura Mensal
+              </Button>
+            </div>
+          )}
+        </div>
       </CardContent>
-      <CardFooter>
-        <Button
-          variant={isFree ? "default" : "outline"}
-          onClick={handleManageSubscription}
-          className={
-            !isFree
-              ? "border-red-200 text-red-600 hover:bg-red-50 hover:text-red-700 dark:border-red-900/30 dark:text-red-400 dark:hover:bg-red-900/20"
-              : ""
-          }
-        >
-          {isFree ? "Fazer Upgrade" : "Cancelar Assinatura"}
-        </Button>
-      </CardFooter>
     </Card>
   );
 }

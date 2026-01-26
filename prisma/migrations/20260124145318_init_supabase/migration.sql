@@ -1,5 +1,5 @@
 -- CreateEnum
-CREATE TYPE "Plan" AS ENUM ('FREE', 'PRO', 'ANNUAL');
+CREATE TYPE "Plan" AS ENUM ('FREE', 'PRO');
 
 -- CreateTable
 CREATE TABLE "user" (

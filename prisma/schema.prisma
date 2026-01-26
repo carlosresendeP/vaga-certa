@@ -39,10 +39,8 @@ model ResumeHistory {
 }
 
 enum Plan {
-
   FREE 
   PRO
-  ANNUAL
 }
 
 model UserUsage {
@@ -99,4 +97,15 @@ model Verification {
   updatedAt  DateTime @updatedAt
 
   @@map("verification")
+}
+
+model KiwifyWebhookLog {
+  id        String   @id @default(cuid())
+  event     String
+  payload   Json
+  status    String   // success, error
+  error     String?
+  createdAt DateTime @default(now())
+
+  @@map("kiwify_webhook_log")
 }
