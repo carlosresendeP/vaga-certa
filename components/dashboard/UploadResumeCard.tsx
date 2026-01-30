@@ -1,7 +1,13 @@
 "use client";
-
-import { useState } from "react";
-import { MdContentCopy, MdRefresh, MdAutoAwesome } from "react-icons/md";
+import { parseResume } from "@/lib/resume-parser";
+import { useRef, useState } from "react";
+import {
+  MdContentCopy,
+  MdRefresh,
+  MdAutoAwesome,
+  MdCloudUpload,
+  MdDownload,
+} from "react-icons/md";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import {
@@ -14,6 +20,7 @@ import {
 import { Progress } from "@/components/ui/progress";
 import { toast } from "sonner";
 import { Label } from "@/components/ui/label";
+import Link from "next/link";
 
 interface UploadResumeCardProps {
   usage: number;
@@ -30,6 +37,55 @@ export function UploadResumeCard({
   const [jobVacancy, setJobVacancy] = useState("");
   const [analysisResult, setAnalysisResult] = useState("");
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [isParsing, setIsParsing] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (file.type !== "application/pdf") {
+      toast.error("Por favor, selecione um arquivo PDF.");
+      return;
+    }
+
+    if (file.size > 5 * 1024 * 1024) {
+      toast.error("O arquivo deve ter no máximo 5MB.");
+      return;
+    }
+
+    setIsParsing(true);
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const response = await fetch("/api/resume/parse", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error("Falha ao ler o PDF");
+      }
+
+      const data = await response.json();
+      if (data.text) {
+        setResumeText(data.text);
+        toast.success("PDF importado com sucesso!");
+      } else {
+        toast.error("Não foi possível extrair texto deste PDF.");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Erro ao processar o arquivo.");
+    } finally {
+      setIsParsing(false);
+      // Reset input
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
+    }
+  };
 
   const handleAnalyze = async () => {
     if (!resumeText.trim()) {
@@ -86,6 +142,7 @@ export function UploadResumeCard({
     }
   };
 
+  const resumeSections = parseResume(analysisResult);
   const usagePercent = isPro ? 0 : (usage / limit) * 100;
 
   return (
@@ -96,22 +153,47 @@ export function UploadResumeCard({
           Otimizador de Currículo com IA
         </CardTitle>
         <CardDescription>
-          Cole seu currículo ou só o resumo atual e a vaga desejada para receber uma versão
-          otimizada.
+          Cole seu currículo ou só o resumo atual e a vaga desejada para receber
+          uma versão otimizada.
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
         {!analysisResult ? (
           <div className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="resume-text">Seu Currículo Atual</Label>
+              <div className="flex justify-between items-center">
+                <Label htmlFor="resume-text">Seu Currículo Atual</Label>
+                <div className="flex gap-2">
+                  <input
+                    type="file"
+                    ref={fileInputRef}
+                    className="hidden"
+                    accept=".pdf"
+                    onChange={handleFileUpload}
+                  />
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="h-8 text-xs"
+                    onClick={() => fileInputRef.current?.click()}
+                    disabled={isParsing || isAnalyzing}
+                  >
+                    {isParsing ? (
+                      <MdRefresh className="mr-2 h-3 w-3 animate-spin" />
+                    ) : (
+                      <MdCloudUpload className="mr-2 h-4 w-4" />
+                    )}
+                    {isParsing ? "Lendo PDF..." : "Importar PDF"}
+                  </Button>
+                </div>
+              </div>
               <Textarea
                 id="resume-text"
                 className="min-h-[200px] font-mono text-sm"
-                placeholder="Cole o texto do seu currículo aqui..."
+                placeholder="Cole o texto do seu currículo aqui ou importe um PDF..."
                 value={resumeText}
                 onChange={(e) => setResumeText(e.target.value)}
-                disabled={isAnalyzing}
+                disabled={isAnalyzing || isParsing}
               />
             </div>
 
@@ -165,14 +247,35 @@ export function UploadResumeCard({
                   <MdContentCopy className="mr-2 h-4 w-4" />
                   Copiar
                 </Button>
+
+                {/* Redireciona para a history */}
+                <Button variant="default" size="sm" className="hover:bg-success hover:text-primary-foreground" >
+                  <Link href={"/dashboard/history"} className="flex items-center gap-2 ">
+                    <MdDownload className="mr-2 h-4 w-4 " />
+                    Baixar
+                  </Link>
+                </Button>
               </div>
             </div>
-            <Textarea
-              value={analysisResult}
-              onChange={(e) => setAnalysisResult(e.target.value)}
-              className="min-h-[400px] font-mono text-sm"
-              placeholder="O resultado da análise aparecerá aqui..."
-            />
+            <div className="space-y-4">
+              {resumeSections.map((section, index) => (
+                <Card key={index} className="bg-muted/50 border-dashed">
+                  <CardHeader className="py-3">
+                    <CardTitle className="text-base font-semibold">
+                      {section.title}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="py-3 pb-4">
+                    <div className="whitespace-pre-wrap text-sm text-muted-foreground">
+                      {section.content.trim()}
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+
+            {/* Hidden Input for raw data if needed later */}
+            <input type="hidden" name="rawResume" value={analysisResult} />
           </div>
         )}
 

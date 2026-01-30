@@ -2,7 +2,7 @@ import { prisma } from "@/lib/prisma";
 import { Prisma } from "@prisma/client";
 import { NextResponse } from "next/server";
 
-// PRO tokens
+// PRO token only
 const KIWIFY_WEBHOOK_TOKEN_PRO = process.env.KIWIFY_WEBHOOK_TOKEN_PRO;
 
 type KiwifyEvent =
@@ -19,10 +19,17 @@ interface KiwifyCustomer {
   [key: string]: unknown;
 }
 
+interface KiwifySubscription {
+  start_date?: string;
+  [key: string]: unknown;
+}
+
 interface KiwifyPayload {
   token?: string;
   email?: string;
   Customer?: KiwifyCustomer;
+  Subscription?: KiwifySubscription;
+  subscription?: KiwifySubscription; // Covering possible casing variations
   event?: KiwifyEvent;
   [key: string]: unknown;
 }
@@ -31,27 +38,26 @@ export async function POST(req: Request) {
   try {
     const payload = (await req.json()) as KiwifyPayload;
 
-    // 1. Security Check & Plan Identification
+    // 1. Security Check
     const receivedToken =
       payload.token || new URL(req.url).searchParams.get("token");
-    let planType: "PRO" | null = null;
 
-    if (receivedToken === KIWIFY_WEBHOOK_TOKEN_PRO) {
-      planType = "PRO";
-    }
-
-    if (!planType) {
-      // Invalid or missing token
+    if (
+      !KIWIFY_WEBHOOK_TOKEN_PRO ||
+      receivedToken !== KIWIFY_WEBHOOK_TOKEN_PRO
+    ) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
     }
 
     // 2. Extract Data
     const email = payload.Customer?.email || payload.email;
     const event = payload.event;
+
+    // Helper to cast payload for Prisma InputJsonValue safely
+    // (Prisma InputJsonValue allows null, string, number, boolean, object, array)
     const payloadJson = payload as unknown as Prisma.InputJsonValue;
 
     if (!email) {
-      // Log error but we can't associate with user yet
       await prisma.kiwifyWebhookLog.create({
         data: {
           event: event || "unknown",
@@ -82,36 +88,77 @@ export async function POST(req: Request) {
 
     // 4. Process Event
     let newPlan = user.plan;
+    let newPlanExpiresAt = user.planExpiresAt;
 
     const normalizedEvent = event?.toLowerCase() || "";
 
     if (
+      normalizedEvent === "order_approved" ||
+      normalizedEvent === "subscription_renewed"
+    ) {
+      newPlan = "PRO";
+      // Extend for 30 days essentially
+      const now = new Date();
+      const nextMonth = new Date(now);
+      nextMonth.setDate(now.getDate() + 30);
+      newPlanExpiresAt = nextMonth;
+    } else if (
       normalizedEvent === "subscription_canceled" ||
       normalizedEvent === "subscription_late" ||
       normalizedEvent === "subscription_refunded" ||
       normalizedEvent === "chargeback"
     ) {
-      // If they cancel ANY plan, we downgrade to FREE.
-      // Logic: You can't be "partially" subscribed.
-      // Exception: If they have overlapping subscriptions, this might be tricky,
-      // but for now, simple logic: cancellation = free.
-      newPlan = "FREE";
-    } else if (
-      normalizedEvent === "subscription_renewed" ||
-      normalizedEvent === "order_approved"
-    ) {
-      // Grant the plan associated with the token
-      newPlan = planType;
+      // "se a assintura for cancelada apos 7 dias, o resto do mes deve continuar ativo"
+      // "se dentro de 7 dias o usuaro cancelar a compra deve se mudar para o free"
+
+      const subscriptionStartDateStr =
+        payload.Subscription?.start_date || payload.subscription?.start_date;
+      let isWithin7Days = false;
+
+      if (subscriptionStartDateStr) {
+        const startDate = new Date(subscriptionStartDateStr);
+        const diffTime = Math.abs(new Date().getTime() - startDate.getTime());
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        if (diffDays <= 7) isWithin7Days = true;
+      } else {
+        // Fallback: If event is specifically 'subscription_refunded' or 'chargeback', implies immediate loss.
+        if (
+          normalizedEvent === "subscription_refunded" ||
+          normalizedEvent === "chargeback"
+        ) {
+          isWithin7Days = true;
+        }
+      }
+
+      if (isWithin7Days) {
+        newPlan = "FREE";
+        newPlanExpiresAt = null;
+      }
+      // Else: do nothing, let it expire naturally.
+      // The user remains "PRO" in the DB, but logic in app checks planExpiresAt.
     }
 
-    if (newPlan !== user.plan) {
+    // 5. Update User if needed
+    // We check if plan or expiration changed.
+    // Note: Comparing Date objects with !== doesn't work well, use getTime()
+    const expiresAtChanged =
+      (newPlanExpiresAt === null && user.planExpiresAt !== null) ||
+      (newPlanExpiresAt !== null && user.planExpiresAt === null) ||
+      (newPlanExpiresAt &&
+        user.planExpiresAt &&
+        newPlanExpiresAt.getTime() !== user.planExpiresAt.getTime());
+
+    if (newPlan !== user.plan || expiresAtChanged) {
       await prisma.user.update({
         where: { id: user.id },
-        data: { plan: newPlan },
+        data: {
+          plan: newPlan,
+          planExpiresAt: newPlanExpiresAt,
+        },
       });
     }
 
-    // 5. Log Success
+    // 6. Log Success
     await prisma.kiwifyWebhookLog.create({
       data: {
         event: normalizedEvent,

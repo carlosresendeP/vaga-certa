@@ -27,7 +27,9 @@ export default async function DashboardPage() {
     redirect("/sign-in");
   }
 
-  const isPro = user.plan === "PRO";
+  const now = new Date();
+  const isPro =
+    user.plan === "PRO" && (!user.planExpiresAt || user.planExpiresAt > now);
   const uploadsLimit = isPro ? 999 : 5;
   const uploadsUsage = user.usage?.resumeUploads || 0;
 

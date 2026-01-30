@@ -17,17 +17,38 @@ export function BillingSection() {
 
   interface UserWithPlan {
     plan?: string;
+    planExpiresAt?: string; // Auth client might return ISO string
+    email?: string;
   }
   const user = session?.user as unknown as UserWithPlan;
-  const plan = user?.plan || "FREE";
+
+  const now = new Date();
+  const planExpiresAt = user?.planExpiresAt
+    ? new Date(user.planExpiresAt)
+    : null;
+
+  // If plan is PRO but expired, treat as FREE
+  let plan = user?.plan || "FREE";
+  if (plan === "PRO" && planExpiresAt && planExpiresAt < now) {
+    plan = "FREE";
+  }
 
   const isFree = plan === "FREE";
 
   const handleUpgrade = (url: string) => {
-    if (url) {
-      window.open(url, "_blank");
-    } else {
-      toast.error("Link de checkout não configurado.");
+    try {
+      if (url) {
+        const checkoutUrl = new URL(url);
+        if (user?.email) {
+          checkoutUrl.searchParams.set("email", user.email);
+        }
+        window.open(checkoutUrl.toString(), "_blank");
+      } else {
+        toast.error("Link de checkout não configurado.");
+      }
+    } catch (error) {
+      console.error("Invalid Checkout URL", error);
+      toast.error("Erro no link de checkout.");
     }
   };
 
@@ -50,7 +71,7 @@ export function BillingSection() {
   }
 
   return (
-    <Card>
+    <Card className="max-w-lg">
       <CardHeader>
         <div className="flex justify-between items-start">
           <div>
@@ -73,10 +94,7 @@ export function BillingSection() {
       <CardContent className="space-y-4">
         <p className="text-sm text-muted-foreground">
           Você está atualmente no plano{" "}
-          <strong>
-            {plan === "FREE" ? "Gratuito" : plan === "PRO"}
-          </strong>
-          .
+          <strong>{plan === "FREE" ? "Gratuito" : plan === "PRO"}</strong>.
         </p>
 
         {!isFree && (
@@ -98,18 +116,7 @@ export function BillingSection() {
                 }
                 className="flex-1"
               >
-                Assinar Mensal (PRO)
-              </Button>
-              <Button
-                onClick={() =>
-                  handleUpgrade(
-                    process.env.NEXT_PUBLIC_KIWIFY_CHECKOUT_URL_ANUAL || "",
-                  )
-                }
-                variant="secondary"
-                className="flex-1"
-              >
-                Assinar Anual (Desconto)
+                Assinar PRO
               </Button>
             </>
           )}
@@ -117,8 +124,7 @@ export function BillingSection() {
           {plan === "PRO" && (
             <div className="flex flex-col w-full gap-2">
               <p className="text-xs text-muted-foreground mb-2">
-                Deseja mudar para o plano Anual? Cancele o plano mensal primeiro
-                para evitar duplicidade.
+                Para cancelar o plano mensal, clique no botão abaixo:
               </p>
               <Button
                 variant="outline"

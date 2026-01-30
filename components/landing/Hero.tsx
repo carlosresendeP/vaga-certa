@@ -60,6 +60,11 @@ export default function Hero() {
             <FaCheckCircle className="h-4 w-4 text-green-500" /> IA Avançada
           </div>
         </div>
+
+        <p className="mt-10 text-xs text-muted-foreground bg-accent p-4 rounded-lg w-full lg:text-sm">
+          <span className="font-bold text-destructive">Nota:</span> Não é garantia que você será chamado, mas aumenta as chances. Não substitui o seu perfil, mas sim o ajuda a se destacar.
+          <br />Não é garantia de emprego.
+        </p>
       </SectionContainer>
 
       {/* Background decoration */}

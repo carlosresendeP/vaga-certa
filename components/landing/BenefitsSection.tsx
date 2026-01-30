@@ -12,7 +12,7 @@ export default function BenefitsSection() {
     },
     {
       icon: <FaClock className="h-10 w-10 text-primary" />,
-      title: "Economize 10+ Horas",
+      title: "Economize Horas",
       description:
         "Pare de ajustar currículos manualmente para cada vaga. Nossa IA faz isso em segundos.",
     },

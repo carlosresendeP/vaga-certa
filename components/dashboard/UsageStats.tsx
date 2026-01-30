@@ -37,7 +37,7 @@ export function UsageStats({
           <Progress value={isPro ? 100 : uploadPercent} className="h-2" />
         </div>
 
-        <div className="space-y-2">
+        {/* <div className="space-y-2">
           <div className="flex items-center justify-between text-sm">
             <span className="flex items-center gap-2 text-blue-500">
               <MdCheck /> Otimização LinkedIn
@@ -61,7 +61,7 @@ export function UsageStats({
               {isPro ? "Ativo" : "Bloqueado"}
             </span>
           </div>
-        </div>
+        </div> */}
       </CardContent>
     </Card>
   );
