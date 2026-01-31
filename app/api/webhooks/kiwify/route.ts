@@ -70,8 +70,10 @@ export async function POST(req: Request) {
     }
 
     // 3. Find User
-    const user = await prisma.user.findUnique({
-      where: { email },
+    const user = await prisma.user.findFirst({
+      where: {
+        OR: [{ email }, { paymentEmail: email }],
+      },
     });
 
     if (!user) {

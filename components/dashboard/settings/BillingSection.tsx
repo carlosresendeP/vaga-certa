@@ -11,6 +11,7 @@ import {
 import { authClient } from "@/lib/auth-client";
 import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
+import { ClaimSubscriptionDialog } from "../ClaimSubscriptionDialog";
 
 export function BillingSection() {
   const { data: session, isPending } = authClient.useSession();
@@ -119,6 +120,12 @@ export function BillingSection() {
                 Assinar PRO
               </Button>
             </>
+          )}
+
+          {isFree && (
+            <div className="flex justify-center w-full mt-2 sm:mt-0 sm:w-auto">
+              <ClaimSubscriptionDialog />
+            </div>
           )}
 
           {plan === "PRO" && (

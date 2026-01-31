@@ -8,8 +8,27 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { MdCheck, MdAutoAwesome } from "react-icons/md";
+import { ClaimSubscriptionDialog } from "./ClaimSubscriptionDialog";
+
+import { authClient } from "@/lib/auth-client";
+import { toast } from "sonner";
 
 export function PlanUpgradeCard() {
+  const { data: session } = authClient.useSession();
+
+  const handleUpgrade = () => {
+    const url = process.env.NEXT_PUBLIC_KIWIFY_CHECKOUT_URL_PRO;
+    if (url) {
+      const checkoutUrl = new URL(url);
+      if (session?.user?.email) {
+        checkoutUrl.searchParams.set("email", session.user.email);
+      }
+      window.open(checkoutUrl.toString(), "_blank");
+    } else {
+      toast.error("Link de checkout não configurado.");
+    }
+  };
+
   return (
     <Card className="border-primary/50 bg-gradient-to-br from-background to-primary/5 relative overflow-hidden">
       <div className="absolute top-0 right-0 p-4 opacity-10">
@@ -42,10 +61,16 @@ export function PlanUpgradeCard() {
           </div>
         </div>
       </CardContent>
-      <CardFooter>
-        <Button className="w-full bg-gradient-to-r from-primary to-green-600 hover:from-primary/90 hover:to-green-600/90 shadow-lg shadow-green-500/20">
+      <CardFooter className="flex-col gap-2">
+        <Button
+          onClick={handleUpgrade}
+          className="w-full bg-linear-to-r from-primary to-green-600 hover:from-primary/90 hover:to-green-600/90 shadow-lg shadow-green-500/20"
+        >
           Fazer Upgrade Agora
         </Button>
+        <div className="flex justify-center w-full">
+          <ClaimSubscriptionDialog />
+        </div>
       </CardFooter>
     </Card>
   );
