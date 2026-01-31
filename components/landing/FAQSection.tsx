@@ -11,7 +11,7 @@ export default function FAQSection() {
     {
       question: "O VagaCerta funciona para qualquer área?",
       answer:
-        "Sim! Nossa IA é treinada em recrutamento global e entende nuances de diversas indústrias, desde TI e Engenharia até Marketing e Saúde.",
+        "Não! Nossa IA é treinada em recrutamento para áreas de tecnologia.",
     },
     {
       question: "Garanto meu emprego usando a ferramenta?",

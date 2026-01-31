@@ -30,7 +30,7 @@ export default async function DashboardPage() {
   const now = new Date();
   const isPro =
     user.plan === "PRO" && (!user.planExpiresAt || user.planExpiresAt > now);
-  const uploadsLimit = isPro ? 999 : 5;
+  const uploadsLimit = isPro ? 20 : 2;
   const uploadsUsage = user.usage?.resumeUploads || 0;
 
   return (

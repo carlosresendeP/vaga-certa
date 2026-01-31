@@ -21,6 +21,7 @@ import { Progress } from "@/components/ui/progress";
 import { toast } from "sonner";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 interface UploadResumeCardProps {
   usage: number;
@@ -33,6 +34,7 @@ export function UploadResumeCard({
   limit,
   isPro,
 }: UploadResumeCardProps) {
+  const router = useRouter();
   const [resumeText, setResumeText] = useState("");
   const [jobVacancy, setJobVacancy] = useState("");
   const [analysisResult, setAnalysisResult] = useState("");
@@ -94,8 +96,9 @@ export function UploadResumeCard({
     }
 
     // Check limits
-    if (!isPro && usage >= limit) {
-      toast.error("Você atingiu o limite de análises gratuitas este mês.");
+    // Check limits
+    if (usage >= limit) {
+      toast.error(`Você atingiu o limite de ${limit} análises este mês.`);
       return;
     }
 
@@ -133,6 +136,7 @@ export function UploadResumeCard({
             ? data.data
             : data.data.markdownContent || JSON.stringify(data.data);
         setAnalysisResult(content);
+        router.refresh();
       }
     } catch (error) {
       console.error(error);
@@ -143,7 +147,7 @@ export function UploadResumeCard({
   };
 
   const resumeSections = parseResume(analysisResult);
-  const usagePercent = isPro ? 0 : (usage / limit) * 100;
+  const usagePercent = (usage / limit) * 100;
 
   return (
     <Card className="w-full">
@@ -222,7 +226,13 @@ export function UploadResumeCard({
         ) : (
           <div className="space-y-4 animate-in fade-in zoom-in duration-300">
             <div className="flex items-center justify-between">
-              <h3 className="text-lg font-medium">Currículo Gerado</h3>
+              <div className="flex flex-col">
+                <h3 className="text-lg font-medium">Currículo Gerado</h3>
+                <span className="text-xs text-left text-success">
+                  Você Pode baixar e fazer as modificações necessárias no
+                  currículo gerado.
+                </span>
+              </div>
               <div className="flex gap-2">
                 <Button
                   variant="outline"
@@ -249,8 +259,15 @@ export function UploadResumeCard({
                 </Button>
 
                 {/* Redireciona para a history */}
-                <Button variant="default" size="sm" className="hover:bg-success hover:text-primary-foreground" >
-                  <Link href={"/dashboard/history"} className="flex items-center gap-2 ">
+                <Button
+                  variant="default"
+                  size="sm"
+                  className="hover:bg-success hover:text-primary-foreground"
+                >
+                  <Link
+                    href={"/dashboard/history"}
+                    className="flex items-center gap-2 "
+                  >
                     <MdDownload className="mr-2 h-4 w-4 " />
                     Baixar
                   </Link>
@@ -279,22 +296,22 @@ export function UploadResumeCard({
           </div>
         )}
 
-        {!isPro && (
-          <div className="space-y-2 pt-4 border-t border-slate-100 dark:border-slate-800">
-            <div className="flex justify-between text-sm">
-              <span className="text-slate-500">Uso gratuito mensal</span>
-              <span className="font-medium">
-                {usage} / {limit} análises
-              </span>
-            </div>
-            <Progress value={usagePercent} className="h-2" />
-            {usage >= limit && (
-              <p className="text-xs text-red-500 mt-1">
-                Limite atingido. Faça upgrade para continuar.
-              </p>
-            )}
+        <div className="space-y-2 pt-4 border-t border-slate-100 dark:border-slate-800">
+          <div className="flex justify-between text-sm">
+            <span className="text-slate-500">
+              Uso mensal ({isPro ? "Pro" : "Gratuito"})
+            </span>
+            <span className="font-medium">
+              {usage} / {limit} análises
+            </span>
           </div>
-        )}
+          <Progress value={usagePercent} className="h-2" />
+          {usage >= limit && (
+            <p className="text-xs text-red-500 mt-1">
+              Limite atingido. Faça upgrade para continuar.
+            </p>
+          )}
+        </div>
       </CardContent>
     </Card>
   );

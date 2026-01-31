@@ -36,7 +36,7 @@ export default function PricingSection() {
           <CardContent className="flex-1">
             <ul className="space-y-3">
               <li className="flex items-center gap-2">
-                <FaCheck className="h-4 w-4 text-success" /> 5 Otimizações de
+                <FaCheck className="h-4 w-4 text-success" /> 2 Otimizações de
                 Currículo/mês
               </li>
               <li className="flex items-center gap-2">
@@ -78,8 +78,8 @@ export default function PricingSection() {
           <CardContent className="flex-1">
             <ul className="space-y-3">
               <li className="flex items-center gap-2">
-                <FaCheck className="h-4 w-4 text-success" /> Otimizações
-                Ilimitadas
+                <FaCheck className="h-4 w-4 text-success" /> 20 Otimizações de
+                Currículo/mês
               </li>
               <li className="flex items-center gap-2">
                 <FaCheck className="h-4 w-4 text-success" /> Copie para o seu

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modelo de Currículo - Desenvolvedor</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 210mm;
+            margin: 0 auto;
+            padding: 20mm;
+            background: white;
+        }
+        
+        @media print {
+            body {
+                padding: 0;
+                margin: 0;
+            }
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #333;
+        }
+        
+        h1 {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .contact-info {
+            font-size: 11px;
+            margin-top: 8px;
+            line-height: 1.8;
+        }
+        
+        .job-title {
+            font-size: 14px;
+            font-weight: bold;
+            margin-top: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        h2 {
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 25px;
+            margin-bottom: 12px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #333;
+            text-transform: uppercase;
+        }
+        
+        .summary {
+            text-align: justify;
+            font-size: 11px;
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+        
+        .section-content {
+            margin-bottom: 20px;
+            font-size: 11px;
+        }
+        
+        .job, .project {
+            margin-bottom: 18px;
+        }
+        
+        .job-header {
+            margin-bottom: 5px;
+        }
+        
+        .job-title-name {
+            font-weight: bold;
+            font-size: 11.5px;
+        }
+        
+        .company {
+            font-size: 11px;
+        }
+        
+        .job-date {
+            font-style: italic;
+            font-size: 10px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+        
+        .job ul, .courses ul {
+            margin-left: 20px;
+            margin-top: 5px;
+        }
+        
+        .job li, .courses li {
+            margin-bottom: 5px;
+            line-height: 1.5;
+        }
+        
+        .project-name {
+            font-weight: bold;
+            font-size: 11.5px;
+        }
+        
+        .tech-stack {
+            font-size: 11px;
+            margin: 3px 0;
+        }
+        
+        .tech-stack strong {
+            font-weight: bold;
+        }
+        
+        .project-description {
+            font-size: 11px;
+            line-height: 1.6;
+            margin-top: 3px;
+        }
+        
+        .tech-section {
+            margin-bottom: 8px;
+            line-height: 1.7;
+        }
+        
+        .tech-section strong {
+            font-weight: bold;
+        }
+        
+        .education-item {
+            margin-bottom: 8px;
+        }
+        
+        .education-item strong {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>SEU NOME COMPLETO</h1>
+        <div class="contact-info">
+            <strong>Brasileiro / PcD (se aplicável)</strong><br>
+            Bairro, Cidade - Estado | Celular: (00) 90000-0000<br>
+            E-mail: seuemail@email.com | LinkedIn: linkedin.com/in/seuperfil<br>
+            GitHub/Portfólio: github.com/seuperfil
+        </div>
+        <div class="job-title">DESENVOLVEDOR FULLSTACK</div>
+    </header>
+
+    <section>
+        <h2>Resumo de Qualificações</h2>
+        <div class="summary">
+            Desenvolvedor Fullstack com experiência em React, Node.js, TypeScript e PostgreSQL. Atuação no desenvolvimento de aplicações web responsivas e APIs REST, com foco em performance e experiência do usuário. Experiência adquirida através de projetos pessoais, freelances e bootcamps intensivos de programação. Conhecimento em arquitetura de software, padrões de design e boas práticas de código limpo. Familiaridade com metodologias ágeis (Scrum), versionamento de código (Git/GitHub) e ferramentas de CI/CD. Habilidade em trabalhar com bancos de dados relacionais e não relacionais, implementando soluções eficientes para diferentes cenários.
+        </div>
+    </section>
+
+    <section>
+        <h2>Formação Acadêmica</h2>
+        <div class="section-content">
+            <div class="education-item">
+                <strong>Tecnólogo em Análise e Desenvolvimento de Sistemas</strong> - Instituição de Ensino, 2024
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>Idiomas</h2>
+        <div class="section-content">
+            <strong>Inglês</strong> – Intermediário
+        </div>
+    </section>
+
+    <section>
+        <h2>Histórico Profissional</h2>
+        <div class="section-content">
+            <div class="job">
+                <div class="job-header">
+                    <span class="job-title-name">Desenvolvedor Fullstack</span> | <span class="company">Nome da Empresa</span>
+                </div>
+                <div class="job-date">Jan/2023 - Atual</div>
+                <ul>
+                    <li>Desenvolvimento de aplicações web utilizando React, TypeScript e Node.js</li>
+                    <li>Criação de APIs REST com Express e integração com bancos de dados PostgreSQL</li>
+                    <li>Implementação de testes automatizados com Jest e Cypress</li>
+                    <li>Participação em code reviews e aplicação de boas práticas de desenvolvimento</li>
+                </ul>
+            </div>
+
+            <div class="job">
+                <div class="job-header">
+                    <span class="job-title-name">Desenvolvedor Frontend</span> | <span class="company">Outra Empresa</span>
+                </div>
+                <div class="job-date">Jun/2022 - Dez/2022</div>
+                <ul>
+                    <li>Desenvolvimento de interfaces responsivas com React e Tailwind CSS</li>
+                    <li>Integração com APIs REST e gerenciamento de estado com Redux</li>
+                    <li>Otimização de performance e implementação de lazy loading</li>
+                    <li>Colaboração com designers para implementação fiel dos protótipos</li>
+                </ul>
+            </div>
+
+            <div class="job">
+                <div class="job-header">
+                    <span class="job-title-name">Estagiário de Desenvolvimento</span> | <span class="company">Empresa Anterior</span>
+                </div>
+                <div class="job-date">Jan/2022 - Mai/2022</div>
+                <ul>
+                    <li>Suporte no desenvolvimento de features frontend em React</li>
+                    <li>Correção de bugs e melhorias de usabilidade</li>
+                    <li>Participação em dailies e retrospectivas da equipe</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>Projetos</h2>
+        <div class="section-content">
+            <div class="project">
+                <div class="project-name">Sistema de Gerenciamento de Tarefas</div>
+                <div class="tech-stack"><strong>Tecnologias:</strong> React, Node.js, Express, MongoDB, Tailwind CSS</div>
+                <div class="project-description">
+                    Aplicação fullstack para gerenciamento de projetos e tarefas com autenticação JWT, dashboard interativo e notificações em tempo real usando WebSockets.
+                </div>
+            </div>
+
+            <div class="project">
+                <div class="project-name">E-commerce Responsivo</div>
+                <div class="tech-stack"><strong>Tecnologias:</strong> Next.js, TypeScript, Stripe, Prisma, PostgreSQL</div>
+                <div class="project-description">
+                    Plataforma de e-commerce com integração de pagamentos, carrinho de compras persistente e painel administrativo para gerenciamento de produtos.
+                </div>
+            </div>
+
+            <div class="project">
+                <div class="project-name">API de Controle Financeiro</div>
+                <div class="tech-stack"><strong>Tecnologias:</strong> Node.js, NestJS, PostgreSQL, Docker, JWT</div>
+                <div class="project-description">
+                    API REST com autenticação, CRUD completo de transações financeiras, relatórios mensais e exportação de dados em CSV.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>Formação Complementar</h2>
+        <div class="section-content courses">
+            <ul>
+                <li><strong>Bootcamp Desenvolvedor Fullstack</strong> - Rocketseat, 2023</li>
+                <li><strong>Curso Avançado de React</strong> - Udemy, 2023</li>
+                <li><strong>Certificação AWS Cloud Practitioner</strong> - Amazon Web Services, 2024</li>
+                <li><strong>Curso de Node.js e MongoDB</strong> - Alura, 2022</li>
+            </ul>
+        </div>
+    </section>
+
+    <section>
+        <h2>Ferramentas e Tecnologias</h2>
+        <div class="section-content">
+            <div class="tech-section"><strong>Linguagens:</strong> JavaScript, TypeScript, Python, SQL</div>
+            <div class="tech-section"><strong>Frontend:</strong> React, Next.js, Vue.js, HTML5, CSS3, Tailwind CSS, Styled Components</div>
+            <div class="tech-section"><strong>Backend:</strong> Node.js, Express, NestJS, RESTful APIs, GraphQL</div>
+            <div class="tech-section"><strong>Banco de Dados:</strong> PostgreSQL, MongoDB, MySQL, Redis, Prisma ORM</div>
+            <div class="tech-section"><strong>DevOps/Cloud:</strong> Docker, AWS, Vercel, Heroku, CI/CD</div>
+            <div class="tech-section"><strong>Ferramentas:</strong> Git, GitHub, VS Code, Figma, Postman, Jest, Cypress</div>
+            <div class="tech-section"><strong>Metodologias:</strong> Scrum, Kanban, TDD, Clean Code, SOLID</div>
+        </div>
+    </section>
+</body>
+</html>

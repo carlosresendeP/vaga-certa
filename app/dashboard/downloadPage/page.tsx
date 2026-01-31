@@ -9,8 +9,8 @@ export default function DownloadPage() {
           Baixe o modelo de currículo para editar e enviar para as vagas
         </p>
         <a
-          href="/modelodeCv.pdf"
-          download="Modelo_de_Curriculo.pdf"
+          href="/Modelo_Curriculo_Dev.docx"
+          download="Modelo_de_Curriculo.docx"
           className="bg-primary text-white px-4 py-2 rounded-lg w-fit animate-in fade-in duration-500
                 hover:bg-primary/80 transition-colors active:translate-y-1 flex items-center justify-center"
         >

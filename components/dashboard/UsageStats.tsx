@@ -10,12 +10,8 @@ interface UsageStatsProps {
   isPro: boolean;
 }
 
-export function UsageStats({
-  uploadsUsage,
-  uploadsLimit,
-  isPro,
-}: UsageStatsProps) {
-  const uploadPercent = isPro ? 100 : (uploadsUsage / uploadsLimit) * 100;
+export function UsageStats({ uploadsUsage, uploadsLimit }: UsageStatsProps) {
+  const uploadPercent = (uploadsUsage / uploadsLimit) * 100;
 
   return (
     <Card>
@@ -31,10 +27,10 @@ export function UsageStats({
               <MdTrendingUp className="text-primary" /> Análises de Currículo
             </span>
             <span className="font-bold">
-              {isPro ? "Ilimitado" : `${uploadsUsage} / ${uploadsLimit}`}
+              {uploadsUsage} / {uploadsLimit}
             </span>
           </div>
-          <Progress value={isPro ? 100 : uploadPercent} className="h-2" />
+          <Progress value={uploadPercent} className="h-2" />
         </div>
 
         {/* <div className="space-y-2">

@@ -16,92 +16,120 @@ export const generateTailoredResume = async (
 
   const genAI = new GoogleGenAI({ apiKey });
 
-  const prompt = `
-    Você é um especialista sênior em carreira, recrutamento e ATS (Applicant Tracking System).
-    Sua tarefa é REESCREVER um currículo existente, adaptando-o com precisão para uma vaga específica.
-    SEJA humano e palavras claras e objetivas. Não seja generico como 'escalaveis, performaticos,background solido, etc'
+const prompt = `
+Você é um especialista sênior em carreira, recrutamento e ATS (Applicant Tracking System).
+Sua tarefa é REESCREVER um currículo existente, adaptando-o com precisão para uma vaga específica.
+SEJA humano e use palavras claras e objetivas. Não seja genérico como 'escaláveis, performáticos, background sólido, etc'
 
-    REGRAS OBRIGATÓRIAS:
-    - O resumo de qualificações deve ter no máximo 4 linhas e no maximo 4 parágrafos no minimo. Minimo de 3 linhas por parágrafo. 
-    - No resumo de qualificações não utilize bullet points, utilize apenas parágrafos. NUNCA Passe de 14 linhas. no minimo 10 linhas.
-    - O currículo deve ter no máximo 2 páginas.
-    - NÃO invente informações, experiências, cargos, empresas, cursos ou datas.
-    - Utilize APENAS informações que estejam explícitas no currículo original.
-    - Reorganize, reescreva e destaque conteúdos, mas mantenha tudo verdadeiro.
-    - Dê prioridade às experiências, habilidades e palavras-chave presentes na descrição da vaga.
-    - Use linguagem profissional, clara e objetiva.
-    - O resultado FINAL deve estar em Markdown limpo, pronto para conversão em PDF.
-    - Não adicione comentários, explicações ou textos fora do currículo.
-    - UTILIZE o modelo de resumo abaixo para gerar o resumo de qualificações. NÃO FAÇA IGUAL AO MODELO, APENAS USE COMO BASE E MUITO MENOS FORMAL.
-    modelo de resumo de qualificações:
-    Profissional da área de programação, com background sólido em [área anterior, ex.: engenharia, administração, marketing]. Experiência prévia em [habilidades transferíveis, ex.: análise de dados, automação de processos, lógica de negócios], agregando uma visão estratégica ao desenvolvimento de software. 
+═══════════════════════════════════════════════════════════════════════════════
+REGRAS OBRIGATÓRIAS DO RESUMO DE QUALIFICAÇÕES
+═══════════════════════════════════════════════════════════════════════════════
 
-    Habilidade em desenvolvimento de sistemas utilizando [tecnologias principais, ex.: JavaScript, React, Node.js, Python], com foco na criação de soluções escaláveis e eficientes. Experiência prática adquirida por meio de projetos próprios, cursos e bootcamps intensivos em programação. 
+FORMATO DO RESUMO:
+- UM ÚNICO PARÁGRAFO CORRIDO (SEM bullet points, SEM quebras de linha)
+- Máximo absoluto: 12 linhas
+- Seja OBJETIVO e DIRETO
+- Foque apenas no essencial: experiência + tecnologias + alinhamento com a vaga
 
-    Capacidade de aprendizado rápido e adaptação a novos desafios, com conhecimento em metodologias ágeis (Scrum, Kanban), versionamento de código (Git) e integração de APIs. Experiência com banco de dados [SQL/NoSQL] e implementação de arquiteturas eficientes para garantir a escalabilidade das soluções. 
+ESTRUTURA DO PARÁGRAFO ÚNICO:
+Inicie com área de atuação/transição, mencione as principais tecnologias que domina alinhadas à vaga, destaque experiência prática relevante (projetos, bootcamps ou trabalhos anteriores) e finalize com metodologias/ferramentas que conectam com os requisitos da posição.
 
-    otivado a ingressar no mercado de tecnologia, trazendo habilidades analíticas, pensamento crítico e experiência multidisciplinar para agregar valor ao desenvolvimento de produtos digitais. Busco oportunidades para colaborar com equipes inovadoras e continuar minha evolução profissional na área de tecnologia. 
+NÃO USE clichês como:
+- "background sólido"
+- "soluções escaláveis"
+- "sistemas robustos"
+- "visão estratégica"
 
-    ────────────────────────────
-    CURRÍCULO ORIGINAL (texto bruto):
-    "${resumeText}"
-    ────────────────────────────
-    DESCRIÇÃO DA VAGA:
-    "${jobDescription}"
-    ────────────────────────────
+USE palavras específicas e objetivas.
 
-    Agora, gere um NOVO currículo, TOTALMENTE ADAPTADO para a vaga, seguindo RIGOROSAMENTE o modelo abaixo.
-    NÃO altere títulos, ordem das seções ou estrutura.
+═══════════════════════════════════════════════════════════════════════════════
+OUTRAS REGRAS OBRIGATÓRIAS
+═══════════════════════════════════════════════════════════════════════════════
 
-    MODELO DE CURRÍCULO (Siga exatamente esta estrutura):
+- O currículo completo deve ter no máximo 2 páginas
+- NÃO invente informações, experiências, cargos, empresas, cursos ou datas
+- Utilize APENAS informações explícitas no currículo original
+- Reorganize, reescreva e destaque conteúdos, mas mantenha tudo verdadeiro
+- Dê prioridade às experiências, habilidades e palavras-chave da vaga
+- Use linguagem profissional, clara e objetiva
+- O resultado FINAL deve estar em Markdown limpo, pronto para conversão em PDF
+- Não adicione comentários, explicações ou textos fora do currículo
 
-    # NOME E SOBRENOME
-    **Nacionalidade / Pcd**
-    Bairro, Cidade e Estado | Celular: (DDD) 9 9999-9999  
-    E-mail: seuemail@seuemail.com | LinkedIn: www.linkedin.com/in/seunomeesobrenome  
-    Portfólio: [Link se houver]
+═══════════════════════════════════════════════════════════════════════════════
+DADOS DE ENTRADA
+═══════════════════════════════════════════════════════════════════════════════
 
-    **[NOME DA VAGA DE INTERESSE]**
+CURRÍCULO ORIGINAL (texto bruto):
+${resumeText}
 
-    ## Resumo de Qualificações
-    [Destaque 1 diretamente relacionado à vaga]
-    [Destaque 2 diretamente relacionado à vaga]
-    [Destaque 3 diretamente relacionado à vaga]
-    [Destaque 4 diretamente relacionado à vaga]
+────────────────────────────────────────────────────────────────────────────────
 
-    ## Formação Acadêmica
-    [Curso] - [Instituição], [Ano]
+DESCRIÇÃO DA VAGA:
+${jobDescription}
 
-    ## Idiomas
-    [Idioma] – [Nível]
+═══════════════════════════════════════════════════════════════════════════════
+ESTRUTURA EXATA DO CURRÍCULO (NÃO ALTERE A ORDEM)
+═══════════════════════════════════════════════════════════════════════════════
 
-    ## Histórico Profissional
+# NOME E SOBRENOME
 
-    [Mês/Ano Início] a [Mês/Ano Fim] – [Nome da Empresa]  
-    [Cargo]  
-    [Atividades e responsabilidades mais relevantes para a vaga]
-    [Resultados mensuráveis ou impactos práticos, se existirem]
+**Nacionalidade / PcD**  
+Bairro, Cidade e Estado | Celular: (DDD) 9 9999-9999  
+E-mail: seuemail@seuemail.com | LinkedIn: www.linkedin.com/in/seunomeesobrenome  
+Portfólio: [Link se houver]
 
-    (Liste APENAS as 3 experiências mais relevantes para a vaga)
+**[NOME DA VAGA DE INTERESSE]**
 
-    ## Experiência Internacional
-    [Liste somente se houver informação no currículo original]
+## Resumo de Qualificações
 
-    ## Formação Complementar
-    [Cursos, certificações ou treinamentos relevantes]
+[UM ÚNICO PARÁGRAFO corrido, máximo 12 linhas, objetivo e direto, conectando experiência anterior + stack técnica + fit com a vaga]
 
-    ## Projetos
-    [Nome do Projeto]: [Tecnologias utilizadas]. [Breve descrição objetiva]. Link: [Link se houver]
+## Formação Acadêmica
 
-    ## Ferramentas da Tecnologia e Outras Informações
-    [Ferramentas, tecnologias e metodologias]
-    [Outras informações profissionais relevantes]
+[Curso] - [Instituição], [Ano]
 
-    IMPORTANTE:
-    - Use palavras-chave da vaga sempre que fizer sentido.
-    - Priorize clareza, escaneabilidade e compatibilidade com ATS.
-    - O conteúdo final deve parecer escrito por um recrutador experiente.
-    `;
+## Idiomas
+
+[Idioma] – [Nível]
+
+## Histórico Profissional
+
+[Mês/Ano Início] a [Mês/Ano Fim] – [Nome da Empresa]  
+[Cargo]  
+[Atividades e responsabilidades mais relevantes para a vaga]
+[Resultados mensuráveis ou impactos práticos, se existirem]
+
+(Liste APENAS as 3 experiências mais relevantes para a vaga)
+
+## Experiência Internacional
+
+[Liste somente se houver informação no currículo original]
+
+## Formação Complementar
+
+[Cursos, certificações ou treinamentos relevantes]
+
+## Projetos
+
+[Nome do Projeto]: [Tecnologias utilizadas]. [Breve descrição objetiva]. Link: [Link se houver]
+
+## Ferramentas da Tecnologia e Outras Informações
+
+[Ferramentas, tecnologias e metodologias]
+[Outras informações profissionais relevantes]
+
+═══════════════════════════════════════════════════════════════════════════════
+LEMBRETE FINAL
+═══════════════════════════════════════════════════════════════════════════════
+
+- Use palavras-chave da vaga sempre que fizer sentido
+- Priorize clareza, escaneabilidade e compatibilidade com ATS
+- O conteúdo final deve parecer escrito por um recrutador experiente
+- CRÍTICO: O Resumo de Qualificações é UM PARÁGRAFO SÓ, máximo 12 linhas
+- Retorne APENAS o currículo em Markdown, sem comentários extras
+
+Agora gere o currículo otimizado:
+`;
 
   try {
     const response = await genAI.models.generateContent({
