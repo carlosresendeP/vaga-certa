@@ -125,7 +125,7 @@ export default function Footer() {
             &copy; {currentYear} VagaCerta. Todos os direitos reservados.
           </p>
           <p className="text-sm text-muted-foreground flex items-center gap-1">
-            Feito com 💜 para devs.
+            Desenvolvido por Carlos Paula.
           </p>
         </div>
       </div>

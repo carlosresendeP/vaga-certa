@@ -16,16 +16,15 @@ export default function Hero() {
         </div>
 
         <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-foreground mb-6 leading-tight animate-fade-in-up delay-100 max-w-5xl mx-auto">
-          Passe pelos{" "}
+          Vença o filtro {" "}
           <span className="text-primary bg-blue-50/50 px-2 rounded-lg">
-            Robôs de RH
+            de IA
           </span>{" "}
-          e <br className="hidden md:block" /> Conquiste sua Entrevista
+          e <br className="hidden md:block" /> Conquiste sua Vaga
         </h1>
 
         <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto leading-relaxed animate-fade-in-up delay-200">
-          Pare de enviar currículos para o &quot;buraco negro&quot;. Otimize seu
-          perfil para sistemas ATS e aumente em até{" "}
+          Otimize seu currículo para sistemas ATS e aumente em até{" "}
           <span className="text-foreground font-semibold">3x suas chances</span>{" "}
           de ser chamado.
         </p>
@@ -40,13 +39,7 @@ export default function Hero() {
               <FaArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </Link>
-          <Button
-            variant="outline"
-            size="lg"
-            className="h-14 px-8 text-lg rounded-full border-2 w-full sm:w-auto hover:bg-secondary/50"
-          >
-            Ver Exemplo Real
-          </Button>
+
         </div>
 
         <div className="mt-12 flex items-center justify-center gap-6 text-sm text-muted-foreground animate-fade-in-up delay-500">

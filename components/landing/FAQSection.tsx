@@ -16,7 +16,7 @@ export default function FAQSection() {
     {
       question: "Garanto meu emprego usando a ferramenta?",
       answer:
-        "Nós garantimos que seu currículo terá muito mais chances de ser lido. A contratação depende também da sua entrevista, mas nós te colocamos na frente dos recrutadores.",
+        "Não garantimos empregos, mas aumentamos as chances de você ser chamado.",
     },
     {
       question: "Posso cancelar quando quiser?",

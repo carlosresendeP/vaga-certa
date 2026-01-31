@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { Briefcase, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { authClient } from "@/lib/auth-client";
 
@@ -11,9 +12,18 @@ export default function Header() {
     <header className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-md border-b border-border/50">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2">
-          <div className="bg-primary/10 p-2 rounded-lg">
-            <span className="text-xl font-bold text-primary tracking-tight">
-              VagaCerta
+          <div className="flex items-center gap-2 group">
+            <div className="relative flex items-center justify-center w-10 h-10 rounded-xl bg-primary shadow-lg shadow-primary/20 group-hover:shadow-primary/30 transition-all duration-300">
+              <Briefcase
+                className="w-5 h-5 text-primary-foreground"
+                strokeWidth={2.5}
+              />
+              <div className="absolute -bottom-1 -right-1 bg-background rounded-full p-0.5 border-2 border-background">
+                <Check className="w-3.5 h-3.5 text-primary stroke-3" />
+              </div>
+            </div>
+            <span className="text-xl font-bold tracking-tight text-foreground group-hover:text-primary/90 transition-colors">
+              Vaga<span className="text-primary">Certa</span>
             </span>
           </div>
         </Link>
