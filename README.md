@@ -1,120 +1,141 @@
 # 🚀 Vaga Certa
 
-**Vaga Certa** is an AI-powered resume optimization platform designed to help job seekers stand out. By leveraging the power of **Google Gemini AI**, the application analyzes uploaded resumes against specific job descriptions, providing actionable feedback and generating optimized versions to increase the chances of landing an interview.
+**Vaga Certa** é uma plataforma de otimização de currículos impulsionada por IA, projetada para ajudar candidatos a se destacarem no mercado de trabalho. Utilizando o poder da **Google Gemini AI**, a aplicação analisa currículos em PDF em relação a descrições de vagas específicas, fornecendo feedbacks acionáveis e gerando versões otimizadas para aumentar as chances de conseguir uma entrevista.
 
-## 🛠️ Tech Stack
+## 🛠️ Tecnologias Utilizadas
 
-This project is built with a modern, performance-focused stack:
+Este projeto foi construído com uma stack moderna e focada em performance:
 
 - **Framework:** [Next.js 15](https://nextjs.org/) (App Router)
-- **Language:** [TypeScript](https://www.typescriptlang.org/)
-- **Styling:** [Tailwind CSS](https://tailwindcss.com/) & [Shadcn/UI](https://ui.shadcn.com/)
-- **Database:** [PostgreSQL](https://www.postgresql.org/) (via Supabase) with [Prisma ORM](https://www.prisma.io/)
-- **Authentication:** [Better-Auth](https://www.better-auth.com/)
-- **AI Model:** [Google Gemini 1.5](https://deepmind.google/technologies/gemini/)
-- **PDF Parsing:** `pdf-parse`
+- **Linguagem:** [TypeScript](https://www.typescriptlang.org/)
+- **Estilização:** [Tailwind CSS](https://tailwindcss.com/) & [Shadcn/UI](https://ui.shadcn.com/)
+- **Banco de Dados:** [PostgreSQL](https://www.postgresql.org/) (via Supabase) com [Prisma ORM](https://www.prisma.io/)
+- **Autenticação:** [Better-Auth](https://www.better-auth.com/)
+- **Modelo de IA:** [Google Gemini 1.5](https://deepmind.google/technologies/gemini/)
+- **Processamento de PDF:** `pdf-parse`
 
-## 📐 Architecture & Flow
+## 📐 Arquitetura e Fluxo
 
-The following diagram illustrates the core user flow within the Vaga Certa application:
+O diagrama abaixo ilustra o fluxo principal do usuário dentro da aplicação Vaga Certa:
 
 ```mermaid
 graph TD
-    A[Landing Page] -->|Login/Register| B(Authentication)
-    B --> C[User Dashboard]
+    A[Landing Page] -->|Login/Cadastro| B(Autenticação)
+    B --> C[Dashboard do Usuário]
 
-    subgraph "Resume Optimization Process"
-        C -->|Upload PDF| D[Resume Parser]
-        D -->|Text Extraction| E[AI Analysis Engine]
-        C -->|Input Job Desc| E
-        E -->|Prompt Engineering| F[Gemini API]
-        F -->|Optimization Suggestions| G[Results View]
-        G -->|Save History| H[(Database)]
+    subgraph "Processo de Otimização de Currículo"
+        C -->|Upload de PDF| D[Processador de Currículo]
+        D -->|Extração de Texto| E[Motor de Análise de IA]
+        C -->|Inserir Descrição da Vaga| E
+        E -->|Engenharia de Prompt| F[API Gemini]
+        F -->|Sugestões de Otimização| G[Visualização de Resultados]
+        G -->|Salvar Histórico| H[(Banco de Dados)]
     end
 
-    subgraph "Subscription Management"
-        C -->|Check Limits| I{Plan Status}
-        I -->|Free| J[Limit: 2/month]
-        I -->|Pro| K[Limit: 20/month]
+    subgraph "Gerenciamento de Assinatura"
+        C -->|Verificar Limites| I{Status do Plano}
+        I -->|Grátis| J[Limite: 2/mês]
+        I -->|Pro| K[Limite: 20/mês]
     end
 ```
 
-## 🚀 Getting Started
+## 📖 Como Usar
 
-### Prerequisites
+Siga este passo a passo para otimizar seu currículo:
 
-Ensure you have the following installed:
+1.  **Acesse a Dashboard**: Após fazer login, você será redirecionado para a área principal.
+2.  **Inicie uma Nova Análise**: Clique no botão para criar uma nova otimização.
+3.  **Upload do Currículo**:
+    - Arraste e solte ou selecione seu arquivo de currículo (formato PDF).
+    - O sistema extrairá automaticamente o texto do seu documento.
+4.  **Descrição da Vaga**:
+    - Cole a descrição completa da vaga para a qual deseja se candidatar.
+    - Quanto mais detalhes sobre a vaga, melhor será a análise da IA.
+5.  **Analisar**: Clique no botão de processamento. A IA irá:
+    - Comparar seu perfil com os requisitos da vaga.
+    - Identificar pontos fortes e lacunas.
+    - Gerar um score de compatibilidade.
+6.  **Resultados**:
+    - Receba um feedback detalhado sobre o que melhorar.
+    - Visualize uma versão sugerida do seu currículo, otimizada para a vaga específica.
+    - Baixe ou copie as sugestões para aplicar no seu documento original.
 
-- **Node.js** (v18+ recommended)
-- **npm** or **pnpm**
-- A **PostgreSQL** database (locally or hosted via Supabase/Neon)
-- A **Google Cloud Console** account (for Gemini API key)
+## 🚀 Começando
 
-### Installation
+### Pré-requisitos
 
-1.  **Clone the repository:**
+Certifique-se de ter instalado:
+
+- **Node.js** (v18+ recomendado)
+- **npm** ou **pnpm**
+- Um banco de dados **PostgreSQL** (local ou hospedado via Supabase/Neon)
+- Uma conta no **Google Cloud Console** (para chave da API Gemini)
+
+### Instalação
+
+1.  **Clone o repositório:**
 
     ```bash
     git clone https://github.com/carlosresendeP/vaga-certa.git
     cd vaga-certa
     ```
 
-2.  **Install dependencies:**
+2.  **Instale as dependências:**
 
     ```bash
     npm install
-    # or
+    # ou
     pnpm install
     ```
 
-3.  **Configure Environment Variables:**
-    Create a `.env` file in the root directory and populate it based on `.env.example`:
+3.  **Configure as Variáveis de Ambiente:**
+    Crie um arquivo `.env` na raiz do projeto e preencha com base no `.env.example`:
 
     ```env
-    # Database
-    DATABASE_URL="postgresql://user:password@host:port/db"
+    # Banco de Dados
+    DATABASE_URL="postgresql://usuario:senha@host:porta/db"
 
-    # Better-Auth (Authentication)
+    # Better-Auth (Autenticação)
     BETTER_AUTH_URL="http://localhost:3000"
-    BETTER_AUTH_SECRET="your-generated-secret"
+    BETTER_AUTH_SECRET="seu-segredo-gerado"
 
-    # OAuth Providers (Google)
-    GOOGLE_CLIENT_ID="your-google-client-id"
-    GOOGLE_CLIENT_SECRET="your-google-client-secret"
+    # Provedores OAuth (Google)
+    GOOGLE_CLIENT_ID="seu-google-client-id"
+    GOOGLE_CLIENT_SECRET="seu-google-client-secret"
 
-    # AI Service
-    GEMINI_API_KEY="your-gemini-api-key"
+    # Serviço de IA
+    GEMINI_API_KEY="sua-chave-api-gemini"
 
-    # Payments (Kiwify)
-    KIWIFY_WEBHOOK_TOKEN_PRO="your-kiwify-token"
-    NEXT_PUBLIC_KIWIFY_CHECKOUT_URL_PRO="your-checkout-url"
+    # Pagamentos (Kiwify)
+    KIWIFY_WEBHOOK_TOKEN_PRO="seu-token-kiwify"
+    NEXT_PUBLIC_KIWIFY_CHECKOUT_URL_PRO="seu-url-checkout"
     ```
 
-4.  **Database Setup:**
-    Push the schema to your database:
+4.  **Configuração do Banco de Dados:**
+    Envie o schema para o seu banco:
 
     ```bash
     npx prisma db push
-    # or
+    # ou
     npx prisma migrate dev
     ```
 
-5.  **Run the application:**
+5.  **Rode a aplicação:**
     ```bash
     npm run dev
     ```
-    Open [http://localhost:3000](http://localhost:3000) to view the app.
+    Abra [http://localhost:3000](http://localhost:3000) para ver o app.
 
-## 💾 Database Schema Overview
+## 💾 Visão Geral do Banco de Dados
 
-Key models in `prisma/schema.prisma`:
+Principais modelos em `prisma/schema.prisma`:
 
-- **User**: Core user data and relationship to other models.
-- **Plan**: Enum (`FREE`, `PRO`) defining user subscription tier.
-- **UserUsage**: Tracks monthly usage (resume uploads/analyses) to enforce plan limits.
-- **ResumeHistory**: Stores original text, job descriptions, and generated results for user history.
-- **Session/Account**: Manages authentication states and provider links (Better-Auth).
+- **User**: Dados principais do usuário e relações.
+- **Plan**: Enum (`FREE`, `PRO`) definindo o nível de assinatura.
+- **UserUsage**: Rastreia o uso mensal (uploads/análises) para aplicar limites do plano.
+- **ResumeHistory**: Armazena o texto original, descrição da vaga e resultados gerados.
+- **Session/Account**: Gerencia sessões e conexões com provedores (Better-Auth).
 
-## 📝 License
+## 📝 Licença
 
-This project is licensed under the MIT License.
+Este projeto está licenciado sob a licença MIT.
