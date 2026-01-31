@@ -18,7 +18,7 @@ Este projeto foi construído com uma stack moderna e focada em performance:
 
 ## Imagens do projeto
 
-# Landing Page
+### Landing Page
 <div style="display: flex; justify-content: center;">
     <img src="/public/Images-readme/l1.png" width="200px" alt="Imagens do projeto">
     <img src="/public/Images-readme/l2.png" width="200px" alt="Imagens do projeto">
@@ -33,7 +33,7 @@ Este projeto foi construído com uma stack moderna e focada em performance:
     <img src="/public/Images-readme/l11.png" width="200px" alt="Imagens do projeto">
 </div>
 
-# Dashboard
+### Dashboard
 <div style="display: flex; justify-content: center;">
     <img src="/public/Images-readme/d1.png" width="200px" alt="Imagens do projeto">
     <img src="/public/Images-readme/d2.png" width="200px" alt="Imagens do projeto">
