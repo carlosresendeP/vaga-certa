@@ -14,6 +14,36 @@ Este projeto foi construído com uma stack moderna e focada em performance:
 - **Modelo de IA:** [Google Gemini 1.5](https://deepmind.google/technologies/gemini/)
 - **Processamento de PDF:** `pdf-parse`
 
+
+
+## Imagens do projeto
+
+# Landing Page
+<div style="display: flex; justify-content: center;">
+    <img src="/public/Images-readme/l1.png" width="200px" alt="Imagens do projeto">
+    <img src="/public/Images-readme/l2.png" width="200px" alt="Imagens do projeto">
+    <img src="/public/Images-readme/l3.png" width="200px" alt="Imagens do projeto">
+    <img src="/public/Images-readme/l4.png" width="200px" alt="Imagens do projeto">
+    <img src="/public/Images-readme/l5.png" width="200px" alt="Imagens do projeto">
+    <img src="/public/Images-readme/l6.png" width="200px" alt="Imagens do projeto">
+    <img src="/public/Images-readme/l7.png" width="200px" alt="Imagens do projeto">
+    <img src="/public/Images-readme/l8.png" width="200px" alt="Imagens do projeto">
+    <img src="/public/Images-readme/l9.png" width="200px" alt="Imagens do projeto">
+    <img src="/public/Images-readme/l10.png" width="200px" alt="Imagens do projeto">
+    <img src="/public/Images-readme/l11.png" width="200px" alt="Imagens do projeto">
+</div>
+
+# Dashboard
+<div style="display: flex; justify-content: center;">
+    <img src="/public/Images-readme/d1.png" width="200px" alt="Imagens do projeto">
+    <img src="/public/Images-readme/d2.png" width="200px" alt="Imagens do projeto">
+    <img src="/public/Images-readme/d3.png" width="200px" alt="Imagens do projeto">
+    <img src="/public/Images-readme/d4.png" width="200px" alt="Imagens do projeto">
+    <img src="/public/Images-readme/d5.png" width="200px" alt="Imagens do projeto">
+</div>
+
+
+
 ## 📐 Arquitetura e Fluxo
 
 O diagrama abaixo ilustra o fluxo principal do usuário dentro da aplicação Vaga Certa:
