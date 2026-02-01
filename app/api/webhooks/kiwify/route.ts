@@ -88,8 +88,13 @@ export async function POST(req: Request) {
           error: `User not found for email: ${email}`,
         },
       });
+      console.log(`[Kiwify Webhook] User not found for email: ${email}`);
       return NextResponse.json({ message: "User not found, ignored" });
     }
+
+    console.log(
+      `[Kiwify Webhook] User found: ${user.email} (${user.id}). Current plan: ${user.plan}, Expires: ${user.planExpiresAt}`,
+    );
 
     // 4. Process Event
     let newPlan = user.plan;
@@ -171,6 +176,9 @@ export async function POST(req: Request) {
         newPlanExpiresAt.getTime() !== user.planExpiresAt.getTime());
 
     if (newPlan !== user.plan || expiresAtChanged) {
+      console.log(
+        `[Kiwify Webhook] Updating user ${user.id}: Plan ${user.plan} -> ${newPlan}, Expires ${user.planExpiresAt} -> ${newPlanExpiresAt}`,
+      );
       await prisma.user.update({
         where: { id: user.id },
         data: {
@@ -178,6 +186,8 @@ export async function POST(req: Request) {
           planExpiresAt: newPlanExpiresAt,
         },
       });
+    } else {
+      console.log(`[Kiwify Webhook] No changes needed for user ${user.id}`);
     }
 
     // 6. Log Success

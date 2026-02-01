@@ -5,17 +5,22 @@ const prisma = new PrismaClient();
 
 async function main() {
   const email = "carlosresende.paula@gmail.com";
-  console.log(`Setting plan to FREE for ${email}...`);
+  console.log(`Checking user status for ${email}...`);
 
-  const user = await prisma.user.update({
-    where: { email },
-    data: {
-      plan: "FREE",
-      planExpiresAt: null,
+  const user = await prisma.user.findFirst({
+    where: {
+      OR: [
+        { email: { equals: email, mode: "insensitive" } },
+        { paymentEmail: { equals: email, mode: "insensitive" } },
+      ],
     },
   });
 
-  console.log("User updated:", user);
+  if (user) {
+    console.log("User found:", user);
+  } else {
+    console.log("User not found.");
+  }
 }
 
 main()
