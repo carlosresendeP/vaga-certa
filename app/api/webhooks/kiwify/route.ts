@@ -122,10 +122,22 @@ export async function POST(req: Request) {
 
       if (subscriptionStartDateStr) {
         const startDate = new Date(subscriptionStartDateStr);
-        const diffTime = Math.abs(new Date().getTime() - startDate.getTime());
-        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-        if (diffDays <= 7) isWithin7Days = true;
+        const now = new Date();
+        const diffTime = Math.abs(now.getTime() - startDate.getTime());
+        // Use exact millisecond check for 7 days
+        const sevenDaysMs = 7 * 24 * 60 * 60 * 1000;
+
+        console.log(
+          `[Cancellation Check] Start: ${startDate.toISOString()}, Now: ${now.toISOString()}, Diff: ${diffTime}ms`,
+        );
+
+        if (diffTime <= sevenDaysMs) {
+          isWithin7Days = true;
+        }
       } else {
+        // Log warning if start_date is missing
+        console.warn("[Cancellation Check] Missing start_date in payload");
+
         // Fallback: If event is specifically 'subscription_refunded' or 'chargeback', implies immediate loss.
         if (
           normalizedEvent === "subscription_refunded" ||
@@ -136,8 +148,13 @@ export async function POST(req: Request) {
       }
 
       if (isWithin7Days) {
+        console.log("[Cancellation Check] Within 7 days. Revoking access.");
         newPlan = "FREE";
         newPlanExpiresAt = null;
+      } else {
+        console.log(
+          "[Cancellation Check] Outside 7 days. Letting it expire naturally.",
+        );
       }
       // Else: do nothing, let it expire naturally.
       // The user remains "PRO" in the DB, but logic in app checks planExpiresAt.
