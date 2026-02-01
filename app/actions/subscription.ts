@@ -30,7 +30,10 @@ export async function claimSubscription(formData: FormData) {
   // 1. Check if email is already in use by another user
   const existingUser = await prisma.user.findFirst({
     where: {
-      OR: [{ email }, { paymentEmail: email }],
+      OR: [
+        { email: { equals: email, mode: "insensitive" } },
+        { paymentEmail: { equals: email, mode: "insensitive" } },
+      ],
       NOT: { id: session.user.id },
     },
   });
@@ -40,32 +43,24 @@ export async function claimSubscription(formData: FormData) {
   }
 
   // 2. Check for successful webhook logs with this email
-  const logs = await prisma.kiwifyWebhookLog.findMany({
+  // 2. Check for successful webhook logs with this email (Case Insensitive)
+  // Since Prisma JSON filtering is case-sensitive, we fetch recent success logs and filter in memory.
+  const recentLogs = await prisma.kiwifyWebhookLog.findMany({
     where: {
       status: "success",
-      payload: {
-        path: ["Customer", "email"],
-        equals: email,
-      },
     },
     orderBy: { createdAt: "desc" },
-    take: 1, // Just need one valid success to prove payment
+    take: 100, // Look at last 100 successful transactions
   });
 
-  // Also check logs where payload.email (root level) might match if structure varies
-  const rootLogs = await prisma.kiwifyWebhookLog.findMany({
-    where: {
-      status: "success",
-      payload: {
-        path: ["email"],
-        equals: email,
-      },
-    },
-    orderBy: { createdAt: "desc" },
-    take: 1,
+  const validLog = recentLogs.find((log) => {
+    const payload = log.payload as {
+      Customer?: { email?: string };
+      email?: string;
+    };
+    const logEmail = payload?.Customer?.email || payload?.email;
+    return logEmail && logEmail.toLowerCase() === email.toLowerCase();
   });
-
-  const validLog = logs[0] || rootLogs[0];
 
   if (!validLog) {
     // Fallback: Check for error logs that might have come through but failed "User not found"
@@ -92,7 +87,8 @@ export async function claimSubscription(formData: FormData) {
       };
       const logEmail = payload?.Customer?.email || payload?.email;
       return (
-        logEmail === email &&
+        logEmail &&
+        logEmail.toLowerCase() === email.toLowerCase() &&
         (log.event === "order_approved" || log.event === "subscription_renewed")
       );
     });
