@@ -19,7 +19,7 @@ export default function CTASection() {
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Button size="lg" className="text-lg h-12 px-8 group font-bold">
-            <Link href="/login" className="flex items-center gap-2">
+            <Link href="/sign-up" className="flex items-center gap-2">
               Otimizar Meu Currículo Agora
               <FaArrowRight className="group-hover:translate-x-1 transition-transform" />
             </Link>

@@ -1,6 +1,7 @@
 import { FaCheckCircle, FaMagic, FaRocket } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
 import { SectionContainer } from "@/components/ui/page";
+import Link from "next/link";
 
 export default function SolutionSection() {
   return (
@@ -35,7 +36,7 @@ export default function SolutionSection() {
             </ul>
 
             <Button size="lg" className="rounded-full px-8">
-              Experimentar Grátis
+              <Link href="/sign-up">Experimentar Grátis</Link>
             </Button>
           </div>
 
