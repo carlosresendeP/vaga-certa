@@ -20,17 +20,19 @@ export default async function DashboardPage() {
   // Fetch full user data including plan and usage
   const user = await prisma.user.findUnique({
     where: { id: session.user.id },
-    include: { usage: true },
   });
 
   if (!user) {
     redirect("/sign-in");
   }
 
+  const { getAndCheckUserUsage } = await import("@/lib/usage");
+  const usageRecord = await getAndCheckUserUsage(user.id);
+
   const { isUserPro } = await import("@/lib/subscription");
   const isPro = isUserPro(user);
   const uploadsLimit = isPro ? 20 : 2;
-  const uploadsUsage = user.usage?.resumeUploads || 0;
+  const uploadsUsage = usageRecord?.resumeUploads || 0;
 
   return (
     <div className="space-y-8 animate-in fade-in duration-500">

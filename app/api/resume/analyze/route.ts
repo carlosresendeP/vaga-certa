@@ -24,18 +24,23 @@ export async function POST(req: NextRequest) {
     }
 
     // Check usage limits
+    // Check usage limits
     const user = await prisma.user.findUnique({
       where: { id: session.user.id },
-      include: { usage: true },
     });
 
     if (!user) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
+    const { getAndCheckUserUsage } = await import("@/lib/usage");
+    const usageRecord = await getAndCheckUserUsage(user.id);
+
+    // If usage is null (first time), treat as 0
+    const usage = usageRecord?.resumeUploads || 0;
+
     const { isUserPro } = await import("@/lib/subscription");
     const isPro = isUserPro(user);
-    const usage = user.usage?.resumeUploads || 0;
     const limit = isPro ? 999999 : 5;
 
     if (usage >= limit) {
