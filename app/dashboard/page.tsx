@@ -27,9 +27,8 @@ export default async function DashboardPage() {
     redirect("/sign-in");
   }
 
-  const now = new Date();
-  const isPro =
-    user.plan === "PRO" && (!user.planExpiresAt || user.planExpiresAt > now);
+  const { isUserPro } = await import("@/lib/subscription");
+  const isPro = isUserPro(user);
   const uploadsLimit = isPro ? 20 : 2;
   const uploadsUsage = user.usage?.resumeUploads || 0;
 

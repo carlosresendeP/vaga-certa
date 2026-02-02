@@ -13,28 +13,17 @@ import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { ClaimSubscriptionDialog } from "../ClaimSubscriptionDialog";
 
+import { isUserPro, UserWithPlan } from "@/lib/subscription";
+
 export function BillingSection() {
   const { data: session, isPending } = authClient.useSession();
 
-  interface UserWithPlan {
-    plan?: string;
-    planExpiresAt?: string; // Auth client might return ISO string
-    email?: string;
-  }
   const user = session?.user as unknown as UserWithPlan;
 
-  const now = new Date();
-  const planExpiresAt = user?.planExpiresAt
-    ? new Date(user.planExpiresAt)
-    : null;
+  const isPro = isUserPro(user);
+  const plan = isPro ? "PRO" : "FREE";
 
-  // If plan is PRO but expired, treat as FREE
-  let plan = user?.plan || "FREE";
-  if (plan === "PRO" && planExpiresAt && planExpiresAt < now) {
-    plan = "FREE";
-  }
-
-  const isFree = plan === "FREE";
+  const isFree = !isPro;
 
   const handleUpgrade = (url: string) => {
     try {

@@ -33,7 +33,8 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
-    const isPro = user.plan === "PRO";
+    const { isUserPro } = await import("@/lib/subscription");
+    const isPro = isUserPro(user);
     const usage = user.usage?.resumeUploads || 0;
     const limit = isPro ? 999999 : 5;
 
