@@ -31,6 +31,7 @@ interface KiwifyPayload {
   Subscription?: KiwifySubscription;
   subscription?: KiwifySubscription; // Covering possible casing variations
   event?: KiwifyEvent;
+  webhook_event_type?: KiwifyEvent;
   [key: string]: unknown;
 }
 
@@ -51,7 +52,8 @@ export async function POST(req: Request) {
 
     // 2. Extract Data
     const email = payload.Customer?.email || payload.email;
-    const event = payload.event;
+    // Kiwify payload might use 'event' or 'webhook_event_type'
+    const event = payload.event || payload.webhook_event_type;
 
     // Helper to cast payload for Prisma InputJsonValue safely
     // (Prisma InputJsonValue allows null, string, number, boolean, object, array)
@@ -116,7 +118,8 @@ export async function POST(req: Request) {
       normalizedEvent === "subscription_canceled" ||
       normalizedEvent === "subscription_late" ||
       normalizedEvent === "subscription_refunded" ||
-      normalizedEvent === "chargeback"
+      normalizedEvent === "chargeback" ||
+      normalizedEvent === "order_refunded"
     ) {
       // "se a assintura for cancelada apos 7 dias, o resto do mes deve continuar ativo"
       // "se dentro de 7 dias o usuaro cancelar a compra deve se mudar para o free"
